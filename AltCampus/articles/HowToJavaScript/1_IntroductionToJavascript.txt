@@ -1,0 +1,143 @@
+How to JavaScript:
+1. Introduction to Javascript
+==========================================
+
+-What is a programming language?
+In their essence all programming languages are just different ways of communicating with the computer. For those new to programming can just look at them as languages corresponding to the spoken languages with the special purpose of allowing humans to communicate with the computer with each language having its own positives and negatives but at its core, based on the same concepts as other languages. Since writing in machine code(1's & 0's) isn't the most convinient way to write intructions for the computer, programming languages provide a way for the developers to not only write code in a language more familiar to them but also allow other programmers to easily comprehend their work.
+However in one way or another all programming languages are converted to machine code because at its base that's all a computer can receive intructions in.
+
+-What is JavaScript?
+Javascript was initially made to "make web pages alive". The programs in this language are called scripts. They can be written in a web page's HTML and executed automatically as the page loads. Scripts, contrary to compiled languages, can be run provided in plain text and run as is without any special preparation or compilation processes as such. This is one of the aspects of JavaScript that differs it from Java (another programming language, albeit a compiled one). The only similarity both languages share is their name which to a noob's eye might give the wrong idea as to the relationship of both languages.
+
+-Why "Java"Scipt?
+Javascript was initially made with another name "LiveScript", however as a marketing ploy its name was switched to JavaScript to match with "Java" to capitalize on its popularity, which at the time was rather high. But as it evolved it grew into a fully independent language with its own specification- so much so that now its popularity it breaking all bounds, especially now that it can be used on backend as well with the introduction of node.js. Today it can run not only on the browser but any device that has a special program called the JavaScript Engine.
+Different Engines have different "codenames". For example:
+* V8 in Chrome and Opera.
+* SpiderMonkey in Firefox.
+These terms are good to remember because they're often used in developer articles on internet. For instance, if a feature X is supported by V8, then it probably works in Chrome and Opera.
+
+-How do Engines Work?
+Engines are pretty complicated. But the basics are easy:
+1. The engine reads ("parses") the script.
+2. Then it converts ("compiles") the script to the machine language.
+3. And then the machine code intructs the computer whats and whatnots.
+So yes, at its core, even scritping languages like JavaScript and Python are compiled to machine code because that's all a computer can understand.
+
+Now that we're done with the basics of what's a programming language, it's time to dive into and start off with our first program:
+
+-Hello, World!
+The tutorial you're about to read is about core JavaScript, which is platform independent. To start off with your first program you can simply open a browser, prefeably Chorme or Firefix but others would work too. Once there you're gonna want to open the developer's console which can be opened by [Ctrl + Shift + I] in Chorme or you can simply right click and choose "Inspect" and then click on the "console" tab.
+Here you can start off writing code to start off, declare variables, functions and what not.
+You can ofcourse choose to save your code in a file with ".js" extension for JavaScript which can be linked to an HTML file and run on any browser or simply run in the terminal, the "HowTo" for which I'm gonna refrain from writing lest I should end up insulting your intelligence.
+Now to stop rambling, we'll just dive in to out first line of code: Have the browser pop up with a "Hello, World!" message.
+To do that all you would want to do is to write:
+    alert("Hello, World!");
+-and press Enter and voila!
+For those working on a terminal, you might want to try the function:
+    console.log("Hello, World!");
+-as alert(); is a browser specific function.
+Let us understand the statement above first before proceeding. The semi-colon at the end of the statement signifies an end of the statement. You'll notice that your code runs just fine without a semi-colon as the Engine does it for you but it's considered good practice to append one at the end of each statement yourself to avoid some situations that you might run into in future where the Engine does not.
+You can write as many statements in a line as you want:
+    alert("Hello,"); alert("World!");
+-each statement separated by a semi-colon. JavaScript only "implicitly" assumes a semi-colon at the end of the statement if the statements are separated by a line-break, like:
+    alert("Hello,")
+    alert("World!")
+Hence this would throw an error:
+    alert("Hello,") alert("World!")
+However, there are cases where a line-break does not mean a semi-colon:
+    alert(3 +
+    1
+    + 2);
+The code outputs 6 because JavaScript does not assume a semicolon at the end of each line as the same statement is spanning over mulitple lines.
+
+-Comments
+Comments form an integral part of a programming language as not only do they help other programmers quickly grasp what a block of code, written by some other developer, does but they also help you get going real quick when you revisit your own code after a while.
+To leave comments in JavaScript all you need to do is to use double forward slashes like:
+    // This is a comment.
+    alert("Hello, World!"); // This comment follows the statement
+Everything following the slashes would be ignored by the engine while parsing the code. Consequently you cannot continue the code on the same line as you've written a comment on:
+    alert("Hello, World!"); // Following code will be ignored alert("Hello again!");
+Sometimes you might want to write a comment that spans mulitple lines, this can be done by adding two asterisks in between the 2 forward slashes like this:
+    /* This comment
+    spans
+    mulitple
+    lines */
+    alert("Hello, World!");
+Why you would want to nest a comment is anyone's guess but I guess it's worth mentioning that it is not supported, such a code will die of an error:
+    /*
+        /*
+            A nested comment that would kill the code's execution with an error
+        */
+    */
+    alert("Hello, World!");
+
+Hopefully this was a good start to your programming journey. In the subsequent chapters we'll focus on variables and other concepts that make a programming language what it is.
+
+===============================================================================
+FINAL DRAFT
+===============================================================================
+
+What is a programming language?
+In their essence all programming languages are just different ways of communicating with the computer. For those new to programming, they can just look at programming languages as languages corresponding to the spoken languages but with the special purpose of allowing humans to communicate with the computer, all at their core, based on the same concepts as others. Since writing in machine code (1's & 0's) isn't the most convenient way to write instructions for the computer, programming languages provide a way for the developers to not only write code in a language more familiar to them but also allow other programmers to easily comprehend their work.
+What is JavaScript?
+JavaScript was initially made to "make web pages alive". The programs in this language are called scripts. They can be written in a web page's HTML and executed automatically as the page loads. Scripts, contrary to compiled languages, can be simply provided in plain text and run as is without any special preparation or compilation processes as such. This is one of the aspects of JavaScript that differs it from Java (another programming language, albeit a compiled one). The only similarity both languages share is their name which to someone, new to programming, might give the wrong idea as to the relationship of both languages.
+Why "Java"Script?
+JavaScript was initially made with another name "LiveScript", however as a marketing ploy its name was switched to JavaScript to match with "Java" in order to capitalise on its popularity, which at the time was rather high. But as it evolved it grew into a fully independent language with its own specifications- so much so that its popularity is breaking all bounds, especially now that it can be used on the back-end as well with the introduction of Node.js. Today it can run not only on the browser but any device that has a special program called the JavaScript Engine.
+Different Engines have different "code names". For example:
+* V8 in Chrome and Opera.
+* Spider-Monkey in Firefox.
+These terms are good to remember because they're often used in developer articles on internet. For instance, if a feature X is supported by V8, then it probably works in Chrome and Opera.
+How do Engines Work?
+Engines are pretty complicated. But the basics are easy:
+1. The engine reads ("parses") the script.
+2. Then it converts ("compiles") the script to the machine language.
+3. And then the machine code instructs the computer for what's and what-not's.
+So yes, at its core, even scripting languages like JavaScript and Python are compiled to machine code because that's all a computer can understand.
+Now that we're done with the basics of what's a programming language, it's time to dive into and start off with our first program:
+Hello, World!
+The tutorial you're about to read is about core JavaScript, which is platform independent. To start off with your first program you can simply open a browser, preferably Chrome or Firefox but others would work too. Once there, you're gonna want to open the developer's console which can be opened by pressing [Ctrl + Shift + I] in Chrome or you can simply right click and choose "Inspect" and then click on the "console" tab.
+Here you can start writing code for now.
+You can of course choose to save your code in a file with ".js" extension for JavaScript which can be linked to an HTML file and run on any browser or simply run in the terminal as is, the "How-To" for which I'm gonna refrain from writing lest I should end up insulting your intelligence.
+Now to stop rambling, we'll just dive into out first line of code: Have the browser pop up with a "Hello, World!" message.
+To do that all you would want to do is to write: 
+alert("Hello, World!");
+and press enter, and voila!
+For those working on a terminal, you might want to try the function: console.log("Hello, World!");as alert(); is a browser specific function.
+Let us understand the statements above first before proceeding. The semi-colon at the end of a statement signifies an end of the statement. You'll notice that your code runs just fine without a semi-colon as the Engine adds it for you but it's considered good practice to append one at the end of each statement yourself to avoid some situations that you might run into in the future where the Engine does not implicitly add a semi-colon. The circular braces "()" signifies that a function is being called, in this case "alert" which is a predefined function but more on that in later chapters; and in the quotes we write the message that we want to have the browser pop up for us. Contrary to alert, console.log simply logs the message in the console.
+Now back to the code, you can write as many statements in a line as you want, each statement separated by a semi-colon:
+alert("Hello,"); alert("World!");
+JavaScript only "implicitly" assumes a semi-colon at the end of the statement if the statements are separated by a line-break, like this:
+alert("Hello,")
+alert("World!")
+Hence this would throw an error: 
+alert("Hello,") alert("World!")
+However, there are cases where a line-break does not mean a semi-colon:
+alert(3 +
+1
++ 2);
+The code outputs 6 because JavaScript does not assume a semicolon at the end of each line as the same statement is spanning over multiple lines.
+Comments
+Comments form an integral part of a programming language as not only do they help other programmers quickly grasp what a block of code, written by some other developer, does but they also help you get going real quick when you revisit your own code after a while.
+To leave comments in JavaScript all you need to do is to use double forward slashes like: 
+// This is a comment spanning over a single line.
+alert("Hello, World!"); // This comment follows the statement
+Everything following the slashes would be ignored by the engine while parsing the code. Consequently, you cannot continue the code on the same line as you've written a comment on:
+alert("Hello, World!"); // Following code will be ignored alert("Hello again!");
+Sometimes you might want to write a comment that spans mulitple lines, this can be done by adding two asterisks in between the 2 forward slashes like this:
+/* This comment
+spans
+multiple
+lines */
+alert("Hello, World!");
+Why you would want to nest a comment is anyone's guess but I guess it's worth mentioning that it is not supported, such a code will die of an error:
+/*
+ /*
+   A nested comment that would kill the code's execution with an    error
+ */
+*/
+alert("Hello, World!");
+Hopefully this was a good start to your programming journey. In the subsequent chapters we'll focus on variables and other concepts that make a programming language what it is. To finish off here's a comment that actually describes the code it's used for:
+// Outputs Hello World
+alert("Hello, World!");
+// logs the message on console.
+console.log("Hello, World!");
