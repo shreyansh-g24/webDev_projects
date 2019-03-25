@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>If else</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            /*
+                1. Make a simple calculator with these functions. Using prompt, type conversion, if else statement.
+                * Add
+                * Sub
+                * Mul
+                * Div
+                2. js--
+                var firstName = 'John';
+                var status = 'single';
+                Write a if else statement where check if the status is single console.log the message `John is single` or else `John is married`
+                3. Write a JavaScript program that accept two integers and display the larger number
+                4. Write a JavaScript conditional statement to find the sign of product of three numbers. Display an alert box with the specified sign.
+            */
+            var option = 1;
+            var menu = "Enter the program option:\n0 Exit\n1 Calc\n2 Relationship status\n3 Integer conparision\n4 sign of the product of three numbers";
+            console.log(menu);
+            while(option != 0)
+            {
+                option = prompt("Enter the option:", "");
+                if(option == 0) alert("Exiting the program");
+                else if(option == 1)
+                {
+                    var num1 = prompt("Enter the first number:", "");
+                    var num2 = prompt("Enter the second number:", "");
+                    var operator = prompt("Enter the desired operator:\n+\n-\n*\n/\n", "");
+
+                    if(operator == "+") alert(Number(num1) + Number(num2));
+                    else if(operator == "-") alert(Number(num1) - Number(num2));
+                    else if(operator == "*") alert(Number(num1) * Number(num2));
+                    else if(operator == "/") alert(Number(num1) / Number(num2));
+                    else alert("Invalid operator try again.");
+                }
+                else if(option == 2)
+                {
+                    var firstName = prompt("Enter the first name:", "");
+                    var status = prompt("Enter the Relationship status:\nMarried\nor\nSingle", "");
+
+                    if(status.toLowerCase() == "single" || status.toLowerCase() == "married") console.log("%s is %s", firstName, status);
+                    else console.log("Unidentified Relationship status");
+                }
+                else if(option == 3)
+                {
+                    var int1 = prompt("Enter the first interger:", "");
+                    int1 = Number(int1);
+                    var int2 = prompt("Enter the second interger:", "");
+                    int2 = Number(int2);
+                    if(Number.isInteger(int1) && Number.isInteger(int2))
+                    {
+                        if(int1 > int2) alert("First integer is bigger");
+                        else if(int2 > int1) alert("Second integer is bigger");
+                        else if(int1 == int2) alert("Integers are equal");
+                    }
+                    else alert("A non integer number indentified\nTry again");
+                }
+                else if(option == 4)
+                {
+                    var num1 = prompt("Enter the first number:", "");
+                    var num2 = prompt("Enter the second number:", "");
+                    var num3 = prompt("Enter the third number:", "");
+                    var product = num1 * num2 * num3;
+                    if(product > 0) alert("Sign of the product: +");
+                    else if(product < 0) alert("Sign of the product: -");
+                    else if(product == 0) alert("Product = 0");
+                }
+                else alert("Enter a valid option");
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,13 @@
+/*Index2.html css*/
+header, footer {
+    text-align: center;
+}
+
+header a {
+    color: cyan;
+}
+
+footer {
+    color: #161E71;
+    background-color: hsl(180, 50%, 50%);
+}

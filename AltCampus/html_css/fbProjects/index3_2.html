@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Box Model 2</title>
+        <style type="text/css">
+            *, *:after, *:before {
+                margin: 0;
+                padding: 0;
+                box-sizing: content-box;
+            }
+
+            body {
+                margin: 100px auto;
+                height: 600px;
+                width: 600px;
+                border: 2px solid #000;
+            }
+
+            .line {
+                border: none;
+                width: 100%;
+                height: 32%;
+                margin: 1% 0;
+            }
+
+            .box1 {
+                display: inline-block;
+                height: 100%;
+                width: 46.5%;
+                background-color: rgb(253, 116, 31);
+            }
+
+            .box2 {
+                display: inline-block;
+                height: 100%;
+                width: 25%;
+                background-color: rgba(0, 182, 64, 0.94);
+                margin-left: 1%;
+            }
+
+            .box3 {
+                display: inline-block;
+                height: 100%;
+                width: 25%;
+                background-color: rgba(182, 0, 119, 0.94);
+                margin-left: 1%;
+            }
+
+            .box4 {
+                display: inline-block;
+                height: 100%;
+                width: 25%;
+                background-color: aqua;
+            }
+
+            .box5 {
+                display: inline-block;
+                height: 100%;
+                width: 46.5%;
+                background-color: rgba(0, 182, 155, 0.94);
+                margin-left: 1%;
+            }
+
+            .box6 {
+                display: inline-block;
+                height: 100%;
+                width: 25%;
+                background-color: rgba(0, 182, 64, 0.94);
+                margin-left: 1%;
+            }
+
+            .box7 {
+                display: inline-block;
+                height: 100%;
+                width: 25%;
+                background-color: rgba(238, 250, 15, 0.94);
+            }
+
+            .box8 {
+                display: inline-block;
+                height: 100%;
+                width: 25%;
+                background-color: rgba(250, 144, 15, 0.94);
+                margin-left: 1%;
+            }
+
+            .box9 {
+                display: inline-block;
+                height: 100%;
+                width: 46.5%;
+                background-color: rgba(250, 26, 15, 0.94);
+                margin-left: 1%;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="line">
+            <div class="box1">Google Guidelines</div>
+            <div class="box2">Material Design</div>
+            <div class="box3">Doodle Archive</div>
+        </div>
+        <div class="line">
+            <div class="box4">Google +</div>
+            <div class="box5">Design Minutes</div>
+            <div class="box6">Glass Designes</div>
+        </div>
+        <div class="line">
+            <div class="box7">HTML</div>
+            <div class="box8">CSS</div>
+            <div class="box9">Javascript</div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>JavaScript Day 1</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            /*
+                var man;                    VALID
+                var 1girl;                  INVALID
+                var woman3;                 VALID
+                var -girl;                  INVALID
+                var blackDog;               VALID
+                var 42;                     INVALID
+                var $42;                    VALID
+                var userName;               VALID
+                var x, y, z;                VALID
+                var x = 5, y = 6, z = 7;    VALID
+                var x = 5 + 10 + 2;         VALID
+
+            */
+            // variables //
+            var username = '';
+            var amount = 2080;
+            var newAmount = amount - 80;
+            var newAmount2 = amount + 200;
+            var newAmount3 = amount * 4;
+            var newAmount4 = amount % 21;
+            var johnAge = 45;
+            var markAge = 35;
+            var johnHeight = 1.20;
+            var markHeight = 1.75;
+            var johnWeight = 65;
+            var markWeight = 75;
+            var booleanBmi = true;
+
+            // functions //
+            function display(){
+                username = prompt("Enter your name:");
+            }
+
+            function compareAge(age1, age2, name1, name2){
+                if(age1 > age2)
+                {
+                    console.log(`${name1} is older`);
+                    console.log(`${name2} is younger`);
+                }
+                else if(age2 > age1)
+                {
+                    console.log(`${name2} is older`);
+                    console.log(`${name1} is younger`);
+                }
+                else if(age1 === age2) console.log("Both have same age.");
+            }
+
+            function bmi(height1, height2, weight1, weight2, name1, name2){
+                var bmi1 = weight1 / (height1 ** 2);
+                var bmi2 = weight2 / (height2 ** 2);
+                console.log(name1, "'s bmi: ", bmi1);
+                console.log(name2, "'s bmi: ", bmi2);
+
+                // boolean variable to store whether name2 has a higher bmi than name1
+                if(bmi1 > bmi2) booleanBmi = false;
+                else if(bmi2 > bmi1) booleanBmi = true;
+
+                if(booleanBmi) console.log(name2, "has a higher Bmi than", name1);
+                else console.log(name1, "has a higher Bmi than", name2);
+            }
+
+            // stepwise code //
+            // formatted string
+            display();
+            alert(`Good morning ${username}`);
+
+            // mathematical operations
+            console.log(`Amount ${amount}\nnewAmount ${newAmount}\nnewAmount2 ${newAmount2}\nnewAmount3 ${newAmount3}\nnewAmount4 ${newAmount4}`)
+
+            // logical operators
+            compareAge(johnAge, markAge, "John", "Mark");
+            console.log("John and Mark's average age:", (markAge + johnAge)/2);
+
+            // bmi
+            bmi(johnHeight, markHeight, johnWeight, markWeight, "John", "Mark");
+        </script>
+    </body>
+</html>

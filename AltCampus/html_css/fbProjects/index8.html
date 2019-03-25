@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Flexbox</title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0">
+    <link rel="stylesheet" type="text/css" href="./index0.css">
+    <style type="text/css" rel="stylesheet">
+        /* Mobile first approach: max-width=450px */
+        /* Body background color*/
+        body {
+            background-color: rgba(119, 119, 119, 0.05);
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            margin: 20px;
+            justify-content: space-between;
+        }
+
+        h1 {
+            font-size: 32px;
+        }
+
+        div.options {
+            display: flex;
+            justify-content: flex-end;
+            width: 200px;
+            font-size: 14px;
+        }
+
+        div.options label {
+            color: rgba(119, 119, 119, 0.95);
+        }
+
+        div.options select {
+            width: 90px;
+        }
+
+        /* Main */
+        main {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            text-align: center;
+            padding: 10px;
+            border-collapse: collapse;
+        }
+
+        figure figcaption:first-of-type {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        figure figcaption:last-of-type {
+            font-weight: 300;
+            font-size: 14px;
+        }
+
+        main figure {
+            padding: 10px;
+            background-color: #fff;
+            border: 2px solid rgba(119, 119, 119, 0.6);
+            width: 43%;
+        }
+
+        main img {
+            border-radius: 5px;
+            height: 150px;
+            width: 80%;
+        }
+
+        @media all and (min-width: 850px) {
+            main img {
+                height: 80%;
+            }
+
+            .first-image, .second-image {
+                height: 400px;
+            }
+        }
+
+        @media all and (min-width: 1024px) {
+            main img, .first-image, .second-image {
+                height: 200px;
+                width: 80%;
+            }
+
+            main figure {
+                width: 18%;
+                height: 230px;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Jackets</h1>
+        <div class="options">
+            <form action="#" method="post">
+                <label for="filter-clothes">FILTER BY:</label>
+                <select id="filter-clothes">
+                    <option value="">--Options--</option>
+                    <option value="all-jackets">All Jackets</option>
+                    <option value="not-all-jackets">Not all Jackets</option>
+                </select>
+            </form>
+            <form action="#" method="post">
+                <label for="sorting">SORT BY:</label>
+                <select id="sorting">
+                    <option value="">--Options--</option>
+                    <option value="featured">Featured</option>
+                    <option value="bookmarked">Bookmarked</option>
+                </select>
+            </form>
+        </div>
+    </header>
+    <main>
+        <figure>
+            <img class="first-image" src="./index5.jpg"/>
+            <figcaption>Winter Jacket</figcaption>
+            <figcaption>$99.99</figcaption>
+        </figure>
+        <figure>
+            <img class="second-image" src="./index5.jpg"/>
+            <figcaption>Winter Jacket</figcaption>
+            <figcaption>$99.99</figcaption>
+        </figure>
+        <figure>
+            <img src="./index5.jpg"/>
+            <figcaption>Winter Jacket</figcaption>
+            <figcaption>$99.99</figcaption>
+        </figure>
+        <figure>
+            <img src="./index5.jpg"/>
+            <figcaption>Winter Jacket</figcaption>
+            <figcaption>$99.99</figcaption>
+        </figure>
+        <figure>
+            <img src="./index5.jpg"/>
+            <figcaption>Winter Jacket</figcaption>
+            <figcaption>$99.99</figcaption>
+        </figure>
+        <figure>
+            <img src="./index5.jpg"/>
+            <figcaption>Winter Jacket</figcaption>
+            <figcaption>$99.99</figcaption>
+        </figure>
+        <figure>
+            <img src="./index5.jpg"/>
+            <figcaption>Winter Jacket</figcaption>
+            <figcaption>$99.99</figcaption>
+        </figure>
+        <figure>
+            <img src="./index5.jpg"/>
+            <figcaption>Winter Jacket</figcaption>
+            <figcaption>$99.99</figcaption>
+        </figure>
+        <figure>
+            <img src="./index5.jpg"/>
+            <figcaption>Winter Jacket</figcaption>
+            <figcaption>$99.99</figcaption>
+        </figure>
+        <figure>
+            <img src="./index5.jpg"/>
+            <figcaption>Winter Jacket</figcaption>
+            <figcaption>$99.99</figcaption>
+        </figure>
+    </main>
+</body>
+</html>

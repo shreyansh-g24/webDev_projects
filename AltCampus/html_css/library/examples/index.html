@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=2.0"/>
+        <!-- styles.css -->
+        <link rel="stylesheet" type="text/css" href="./../dist/styles.css"/>
+        <title>Library Example</title>
+    </head>
+    <body>
+        <main class="text-center">
+            <section>
+                <!-- center aligned -->
+                <p class="margin-bottom">Centered aligned via additional class</p>
+                <!-- headings -->
+                <h1 class="margin-bottom">Heading 1</h1>
+                <h2 class="margin-bottom">Heading 2</h2>
+                <h3 class="margin-bottom">Heading 3</h3>
+                <h4 class="margin-bottom">Heading 4</h4>
+                <h5 class="margin-bottom">Heading 5</h5>
+                <h6 class="margin-bottom">Heading 6</h6>
+                <!-- left aligned paragraph -->
+                <p class="text-left margin-bottom padding">
+                    Left aligned via additional class || Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero recusandae corporis odit suscipit aliquid dolores natus, cupiditate laborum amet itaque doloremque, accusantium, totam fuga officia pariatur. Aperiam ipsum tenetur, rem. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam tempore, laboriosam debitis excepturi eaque cum. Quo at, deleniti sapiente animi molestias explicabo eius tempora itaque nam dolorum magnam blanditiis, ipsam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione quia qui ipsum repellendus, fugit beatae incidunt totam placeat ea aliquid. Eius non nam consequatur unde nulla doloremque veritatis quam voluptatibus.
+                </p>
+            </section>
+            <!-- colors -->
+            <section class="margin-bottom">
+                <p>
+                    Colors:
+                    <div class="text-primary-color">Primary text color</div>
+                    <div class="text-secondary-color">Secondary text color</div>
+                    <div class="bg-primary-color">Primary Background color</div>
+                    <div class="bg-secondary-color">Secondary background color</div>
+                </p>
+            </section>
+            <!-- buttons -->
+            <section class="margin-bottom">
+                <button class="button margin-right">Default</button>
+                <button class="button button-outlined border-radius margin-right">Outlined</button>
+                <button class="button button-clear margin-right">Clear</button>
+                <button class="button button-raised">Raised</button>
+            </section>
+            <!-- blockquote -->
+            <section class="margin-bottom">
+                <blockquote class="blockquote margin-center padding">&quot;Some quote- left aligned by adding property to its class || Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium nostrum ea dolores accusantium asperiores explicabo porro, tempore iusto nobis quasi eos alias praesentium fugiat dolorum vero eligendi sint, laborum assumenda.&quot;</blockquote>
+            </section>
+            <!-- form: inputs and textarea -->
+            <section>
+                <form action="#" method="post">
+                    <input class="input-field margin-center margin-bottom padding" type="text" name="dummyfield" placeholder="Some Info"/>
+                    <div class="margin-bottom">
+                        <label>
+                            <input class="" type="checkbox" name="something"/>Label
+                        </label>
+                        <label>
+                            <input class="" type="checkbox" name="something"/>Label2
+                        </label>
+                    </div>
+                    <textarea class="padding input-textarea margin-bottom" placeholder="A textarea"></textarea>
+                </form>
+            </section>
+            <!-- table -->
+            <section class="margin-bottom">
+                <table class="table margin-center text-center">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Height</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Stephen Curry</td>
+                            <td>26</td>
+                            <td>1.91</td>
+                            <td>Akron, OH</td>
+                        </tr>
+                        <tr>
+                            <td>Stephen Curry</td>
+                            <td>26</td>
+                            <td>1.91</td>
+                            <td>Akron, OH</td>
+                        </tr>
+                        <tr>
+                            <td>Stephen Curry</td>
+                            <td>26</td>
+                            <td>1.91</td>
+                            <td>Akron, OH</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Total People:</td>
+                            <td></td>
+                            <td></td>
+                            <td>3</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </section>
+            <!-- code snippet -->
+            <section class="margin-bottom">
+                <div class="code-snippet-container margin-center">
+                    <pre class="code-snippet margin-center">
+                        /* ERIC MEYER'S CSS RESET */
+                        html, body, div, span, applet, object, iframe,
+                        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+                        a, abbr, acronym, address, big, cite, code,
+                        del, dfn, em, img, ins, kbd, q, s, samp,
+                        small, strike, strong, sub, sup, tt, var,
+                        b, u, i, center,
+                        dl, dt, dd, ol, ul, li,
+                        fieldset, form, label, legend,
+                        table, caption, tbody, tfoot, thead, tr, th, td,
+                        article, aside, canvas, details, embed,
+                        figure, figcaption, footer, header, hgroup,
+                        menu, nav, output, ruby, section, summary,
+                        time, mark, audio, video
+                            margin: 0
+                            padding: 0
+                            border: 0
+                            font-size: 100%
+                            font: inherit
+                            vertical-align: baseline
+
+                        /* HTML5 display-role reset for older browsers */
+                        article, aside, details, figcaption, figure,
+                        footer, header, hgroup, menu, nav, section
+                            display: block
+
+                        body
+                            line-height: 1
+
+                        ol, ul
+                            list-style: none
+
+                        blockquote, q
+                            quotes: none
+
+                        blockquote:before, blockquote:after,
+                        q:before, q:after
+                            content: ''
+                            content: none
+
+                        table
+                            border-collapse: collapse
+                            border-spacing: 0
+                    </pre>
+                </div>
+            </section>
+            <!-- grid -->
+            <!-- <section class="margin-bottom">
+                <div class="gridContainer">
+                    <div class="gridItem gridHeader">Item 0</div>
+                    <div class="gridItem gridAside">Item 1</div>
+                    <div class="gridItem gridMain">Item 2</div>
+                    <div class="gridItem">Item 3</div>
+                    <div class="gridItem">Item 4</div>
+                    <div class="gridItem">Item 5</div>
+                    <div class="gridItem">Item 6</div>
+                    <div class="gridItem">Item 7</div>
+                    <div class="gridItem">Item 8</div>
+                    <div class="gridItem gridFooter">Item 9</div>
+                </div>
+            </section> -->
+        </main>
+    </body>
+</html>

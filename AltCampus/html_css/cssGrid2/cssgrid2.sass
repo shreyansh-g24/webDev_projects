@@ -1,0 +1,254 @@
+/* CSS RESET */
+*, *:after, *:before
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+
+//  extends
+%twobytwoitems
+    grid-column: span 2
+    grid-row: span 2
+
+%twobyoneitems
+    // grid-column: span 1 // single column is the default layout
+    grid-row: span 2
+
+%twobyfouritems
+    grid-column: 1 / -1
+    grid-row: span 2
+
+%background-images
+    background-size: cover
+    background-position: center
+
+/* clearfix */
+%clearfix:after, %clearfix:before
+    content: ""
+    display: table
+
+%clearfix:after
+    clear: both
+
+%clearfix
+    *zoom: 1
+
+/* Styles */
+header
+    position: fixed
+    background-color: rgba(#000, 0)
+    padding: 20px
+    width: 100%
+    color: rgba(black, 1)
+    span
+        font-weight: 600
+        font-size: 22px
+    nav
+        padding: 0 50px
+        display: flex
+        justify-content: space-between
+    ul
+        display: inline
+    li
+        display: inline
+        margin-right: 10px
+    select
+        display: none
+    li:hover
+        color: rgba(orange, 1)
+
+main
+    display: grid
+    grid-template-columns: repeat(4, 1fr)
+    grid-auto-rows: 300px
+    h2
+        font-size: 24px
+        align-self: start
+
+main > div
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    padding: 20px
+
+main > div > *
+    margin-bottom: 10px
+
+i
+    font-size: 28px
+
+.home-img
+    grid-row: 1 / span 3
+    grid-column: 1 / span 2
+    background-image: url(./cssgrid2/home-img.jpg)
+    // background-size: cover
+    // background-position: center
+    @extend %background-images
+
+.welcome
+    grid-row: span 3
+    grid-column: span 2
+    background-color: #f5e3d5
+    p
+        align-self: start
+    button
+        align-self: start
+        height: 40px
+        width: 25%
+        background-color: rgba(#fff, 0.7)
+        border-radius: 25px
+        border: 2px solid #000
+
+.sometext
+    grid-row: span 1
+    grid-column: span 2
+    background-color: #fff
+
+.about-img
+    background-image: url(./cssgrid2/about-img.jpg)
+    // background-position: center
+    // background-size: cover
+    @extend %background-images
+
+.myskills, .interface
+    background-color: #ebb64a
+
+.myskills
+    align-items: start
+    p
+        @extend %clearfix
+        width: 80%
+        span:last-child
+            float: right
+    div
+        height: 3px
+        width: 100%
+    div:nth-of-type(1)
+        background-image: linear-gradient(90deg, rgba(#fff, 0.7) 50%, rgba(#000, 0.7) 50%)
+    div:nth-of-type(2)
+        background-image: linear-gradient(90deg, rgba(#fff, 0.7) 70%, rgba(#000, 0.7) 30%)
+    div:nth-of-type(3)
+        background-image: linear-gradient(90deg, rgba(#fff, 0.7) 80%, rgba(#000, 0.7) 20%)
+
+.media
+    background-color: #ff5f36
+
+.mobile
+    background-color: #1c1c1c
+    color: rgba(white, 0.7)
+
+.coding
+    background-color: #fff
+
+.experience-img
+    // grid-column: span 2
+    // grid-row: span 2
+    @extend %twobytwoitems
+    background-image: url(./cssgrid2/experience-img.jpg)
+    // background-position: center
+    // background-size: cover
+    @extend %background-images
+
+.myexperiences
+    // grid-column: span 2
+    // grid-row: span 2
+    @extend %twobytwoitems
+    background-color: #ff5f36
+
+.myedu
+    @extend %twobytwoitems
+    background-color: #ebb64a
+
+.eduimg
+    background-image: url(./cssgrid2/education-img.jpg)
+    @extend %twobytwoitems
+    @extend %background-images
+
+.form
+    @extend %twobytwoitems
+    background-color: #ff5f35
+    color: rgba(#fff, 0.9)
+    *
+        display: block
+        // align-self: start
+        margin-bottom: 20px
+        width: 90%
+    input, textarea
+        background-color: #ff5f35
+        border: none
+        border-bottom: 2px solid #ebb64a
+    input
+        height: 35px
+    textarea
+        height: 50px
+    button
+        height: 35px
+        width: 40%
+        background-color: rgba(#fff, 0.9)
+        color: rgba(#000, 0.5)
+        border-radius: 25px
+
+.contact-img
+    background-image: url(./cssgrid2/contact-img.jpg)
+    @extend %twobyoneitems
+    @extend %background-images
+
+.contact
+    @extend %twobyoneitems
+    background-color: #1c1c1c
+    color: rgba(#fff, 0.7)
+    *
+        align-self: start
+
+.iframe
+    @extend %twobyfouritems
+    background-color: #ff5f36
+    iframe
+        height: 80%
+        width: 80%
+
+.copyright
+    grid-column: 1 / -1
+    background-color: #fff
+    p:first-of-type
+        margin-bottom: 20px
+    span
+        display: inline-block
+        height: 20px
+        width: 20px
+        border-radius: 50%
+        margin-right: 20px
+    span:nth-of-type(1)
+        background-color: blue
+    span:nth-of-type(2)
+        background-color: blue
+    span:nth-of-type(3)
+        background-color: red
+    span:nth-of-type(4)
+        background-color: rgba(#000, 0.6)
+    span:nth-of-type(5)
+        background-color: green
+
+@media all and (max-width: 1024px)
+    main
+        grid-template-columns: repeat(2, 1fr)
+        h2
+            align-self: center
+        .contact
+            *
+                align-self: center
+
+    header
+        background-color: rgba(#fff, 1)
+        color: rgba(#000, 0.8)
+        ul
+            display: none
+        select
+            display: block
+            border-radius: 25%
+            background-color: rgba(#fff, 0.9)
+            width: 150px
+            border: 2px solid rgba(#000, 0.8)
+
+    main > div
+        grid-column: span 2

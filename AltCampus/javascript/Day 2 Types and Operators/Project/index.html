@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Day 2</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            "use strict";
+
+            ///////////////////
+            // Get two values from the user ‘password’ and ‘confirm password’  using the prompt box and display a message “Password validated” if both the values match else display the message “Password do not match”
+            var password = password = prompt("Enter the password:", "");
+            var confirmPass = prompt("Confirm the password:", "");
+
+            if(password === confirmPass) console.log("Successful");
+            else console.log("Password did not match!");
+
+            //////////////////
+            // Find the output of the following
+            // Logical AND operation
+            // true  && true;       TRUE
+            // true  && false;      FALSE
+            // false && true;       FALSE
+            // false && false;      FALSE
+
+            // Logical OR operation
+            // true  || true;       TRUE
+            // true  || false;      TRUE
+            // false || true;       TRUE
+            // false || false;      FALSE
+
+            // "foo" && "bar";      TRUE- "bar"
+            // "bar" && "foo";      TRUE- "foo"
+            // "foo" && "";         FALSE- ""
+            // ""    && "foo";      FALSE- ""
+
+            // "foo" || "bar";      TRUE- "foo"
+            // "bar" || "foo";      TRUE- "bar"
+            // "foo" || "";         TRUE- "foo"
+            // ""    || "foo";      TRUE- "foo"
+
+            //////////////////////////
+            let isGuestOneVeg = true;
+            let isGuestTwoVeg = true;
+            // If both are veg "Only offer up vegan dishes."
+            // At least one veg  "Make sure to offer up some vegan options."
+            // Else, "Offer up anything on the menu"
+            if(isGuestOneVeg && isGuestTwoVeg) console.log("Only vegan dishes");
+            else if(isGuestOneVeg || isGuestTwoVeg) console.log("Some vegan options");
+            else console.log("Anything on the menu.");
+
+            //////////////////////
+            let temp = 8;
+            // 1. If temperature is less then 32 alert "It is freezing outside"
+            // 2. If the temperature is greater then 110 alert "It is hot outside"
+            // 3. else 'Go for it. It is pretty nice out'
+            if(temp < 32) alert("Freezing outside.");
+            else if(temp > 110) alert("Hot outside");
+            else if(temp >= 32 && temp <= 110) alert("Pretty nice outside");
+
+            //////////////////////
+            // Output of this alert( alert(1) || 2 || alert(3) );
+            alert(alert(1) || 2 || alert(3));
+            // OUTPUT: 2 as or searches for the first true. alert(1) and alert(3) returns undefined i.e. a falsy value. So it prints the first alert but stops at the second 2 which is a truthy value
+
+            /////////////////////
+            // Create a function which takes two input and (a,b) and display the sum, sub, multiplication, devision of those two numbers.
+            function math(a, b) {
+                console.log("Sum: %d", a + b);
+                console.log("Sub: %d", a - b);
+                console.log("Mul: %d", a * b);
+                console.log("Div: %d", a / b);
+            }
+            math(2, 5);
+
+            ////////////////////
+            // Function to display a number if user enters negative number
+            function onlyNegative(){
+                var num = prompt("Enter a number:", "");
+                if(num < 0) alert(num);
+            }
+            onlyNegative();
+
+            //////////////////////
+            // If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+            // Find the sum of all the multiples of 3 or 5 below 1000.
+            var total = 0;
+            for(let i = 0; i < 1000; i++){
+                if(i % 3 ===  0 || i % 5 === 0) total += i;
+            }
+            console.log("Sum of the mulitples: %d", total);
+
+            /////////////////////
+            // If user enters positive number, that number won't be displayed
+            function onlyPositive(){
+                var num = prompt("Enter a number:", "");
+                if(num > 0) alert(num);
+            }
+            onlyPositive();
+
+            /////////////
+            // Funnction to check whether an integer entered by the user is odd or even
+            function oddEven(){
+                var num = prompt("ODD/EVEN- Enter a number:", "");
+                if(+num % 2 === 0) alert("Even number");
+                else alert("Odd number");
+            }
+            oddEven();
+
+            /////////////////
+            // Funnction to take two input and show the relation using =, > or < i.e (21,45) 21 < 45, (23,12) 23 > 12
+            function relation(a, b) {
+                if(a > b) console.log("%d > %d", a, b);
+                else if(a < b) console.log("%d < %d", a, b);
+                else if(a == b) console.log("%d = %d", a, b);
+            }
+            relation(12, 43);
+
+            ////////////////
+            // Funnction to Check Whether a Character is Vowel or Consonant
+            function alphabet(a){
+                if(a === "a" || a === "e" ||a === "i" || a === "o" || a === "u") console.log("Entered alphabet is a vowel");
+                else console.log("Entered alphabet is a consonant");
+            }
+            alphabet('a');
+
+            /////////////////
+            // Funnction to Find the Largest Number Among Three Numbers
+            function largest(a, b, c){
+                if(a > b && a > c) console.log("%d is the largest", a);
+                else if(b > a && b > c) console.log("%d is the largest", b);
+                else if(c > a && c > b) console.log("%d is the largest", c);
+            }
+            largest(12, 34, 8);
+
+            /////////////////
+            // Switch
+            // You are given a variable, . Your task is to print:
+            // - ONE, if num is equal to 1.
+            // - TWO, if num is equal to 2.
+            // - THREE, if num is equal to 3.
+            // - FOUR, if num is equal to 4.
+            // - FIVE, if num is equal to 5.
+            // - SIX, if num is equal to 6.
+            // - SEVEN, if num is equal to 7.
+            // - EIGHT, if num is equal to 8.
+            // - NINE, if num is equal to 9.
+            // - PLEASE TRY AGAIN, if  is none of the above.
+            switch (temp){
+                case 1:
+                    alert("ONE");
+                    break;
+                case 2:
+                    alert("TWO");
+                    break;
+                case 3:
+                    alert("THREE");
+                    break;
+                case 4:
+                    alert("FOUR");
+                    break;
+                case 5:
+                    alert("FIVE");
+                    break;
+                case 6:
+                    alert("SIX");
+                    break;
+                case 7:
+                    alert("SEVEN");
+                    break;
+                case 8:
+                    alert("EIGHT");
+                    break;
+                case 9:
+                    alert("NINE");
+                    break;
+                default:
+                    alert("Try Again");
+            }
+
+            /////////////////////
+            // You are given a variable marks. Your task is to print:
+            // - AA if marks is greater than 90.
+            // - AB if marks is greater than 80 and less than or equal to 90
+            // - BB if marks is greater than 70 and less than or equal to 80
+            // - BC if marks is greater than 60 and less than or equal to 70
+            // - CC if marks is greater than 50 and less than or equal to 60
+            // - CD if marks is greater than 40 and less than or equal to 50
+            // - DD if marks is greater than 30 and less than or equal to 40
+            // - FF if marks is less than or equal to 30
+            var marks = 87;
+            if(marks > 90) console.log("AA");
+            else if(marks > 80) console.log("AB");
+            else if(marks > 70) console.log("BB");
+            else if(marks > 60) console.log("BC");
+            else if(marks > 50) console.log("CC");
+            else if(marks > 40) console.log("CD");
+            else if(marks > 30) console.log("DD");
+            else if(marks <= 30) console.log("FF");
+
+            //////////////////
+            // Function to generate Multiplication Table of a given number (use alert for number input)
+            function multiplicationTable(num){
+                for(let i = 0; i <= 10; i++){
+                    console.log("%d * %d = %d", num, i, num * i);
+                }
+            }
+
+            /////////////////
+            // Function to calculate the Factorial of a Number
+            var num = 10, fac = 1;
+            function factorial(num){
+                if(num === 0) return 1;
+                else return num * factorial(num - 1);
+            }
+            fac = factorial(num);
+            console.log("Factorial of %d: %d", num, fac);
+
+            ///////////////////
+            // Output: var x = 10 + "1"; console.log(x); typeof x;
+            // OUTPUT: 101, type of x: string
+
+            //////////////////////
+            //  Solve: 225 % 6 = ?
+            console.log(225 % 6);
+
+            /////////////////////
+            // Each new term in the Fibonacci sequence is generated by adding the previous two terms. By starting with 1 and 2, the first 10 terms will be:
+            // 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...
+            // By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
+            var oldFibnum = 1;
+            var fibNum = 1;
+            var sum = 0;
+            function fibSeq(num, oldNum){
+                while(num < 4000000){
+                    var newNum = num + oldNum;
+                    oldNum = num;
+                    num = newNum;
+                    if(num % 2 == 0) sum += num;
+                }
+                console.log(sum);
+            }
+            fibSeq(fibNum, oldFibnum);
+
+            /////////////////////////
+            // Write a function named greaterNum that:
+            // takes 2 arguments, both numbers.
+            // returns whichever number is the greater (higher) number.
+            // Call that function 2 times with different number pairs, and log the output to make sure it works (e.g. "The greater number of 5 and 10 is 10.").
+            function greater(a, b){
+                let temp = a > b ? a : b;
+                return temp;
+            }
+            console.log(greater(10, 15));
+            console.log(greater(20, -8));
+
+            ////////////////////
+            //Write a function named helloWorld that:
+            // takes 1 argument, a language code (e.g. "es", "de", "en")
+            // returns "Hello, World" for the given language, for at least 3 languages. It should default to returning English.
+            // Call that function for each of the supported languages and log the result to make sure it works.
+            function helloWorld(lang){
+                let temp = lang === "es" ? "Hola Mundo" : lang === "de" ? "Hallo Welt" : "Hello World";
+                return temp;
+            }
+            console.log(helloWorld("es"));
+            console.log(helloWorld("de"));
+            console.log(helloWorld("en"));
+            console.log(helloWorld("random"));
+
+            ////////////////////
+            // Loops
+            // For loop
+            // Write a for loop that will iterate from 0 to 20. For each iteration, it will check if the current number is even or odd, and report that to the screen (e.g. "2 is even").
+            for(let i = 0; i <= 20; i++){
+                if(i % 2 === 0) console.log("%d is even", i);
+                else console.log("%d is odd", i);
+            }
+
+            ///////////////
+            // Write a for loop that will iterate from 0 to 10. For each iteration of the for loop, it will multiply the number by 9 and log the result (e.g. "2 * 9 = 18").
+            for(let i = 0; i <= 10; i++){
+                console.log("9 * %d = %d", i, i * 9);
+            }
+
+            /////////////////////
+            // Use a nested for loop to show the tables for every multiplier from 1 to 10 (100 results total).
+            for(let i = 0; i <= 10; i++){
+                for(let j = 0; j <= 10; j++)
+                    console.log("%d * %d = %d", i, j, i * j);            }
+
+            /*
+                John and Mike both play basketball in different teams. In the latest 3 games, John's team scored 89, 120 and 103 points, while Mike's team scored 116, 94 and 123 points.
+                1. Calculate the average score for each team
+                2. Decide which teams wins in average (highest average score), and print the winner to the console. Also include the average score in the output.
+                3. Then change the scores to show different winners. Don't forget to take into account there might be a draw (the same average score)
+                4. Mary also plays basketball, and her team scored 97, 134 and 105 points. Like before, log the average winner to the console. HINT: you will need the && operator to take the decision. If you can't solve this one, just watch the solution, it's no problem :)
+                5. Like before, change the scores to generate different winners, keeping in mind there might be draws.
+                GOOD LUCK 😀
+            */
+            var johnScores = [89, 120, 103];
+            var mikeScores = [116, 94, 123];
+            var winnerAvg = 0;
+            var johnAvg = (johnScores[0]  + johnScores[1] + johnScores[2]) / 3;
+            var mikeAvg = (mikeScores[0]  + mikeScores[1] + mikeScores[2]) / 3;
+            if(johnAvg > mikeAvg) {
+                console.log("John has higher average.");
+                winnerAvg = johnAvg;
+            }
+            else if(mikeAvg > johnAvg) {
+                console.log("Mike has a higher average.");
+                winnerAvg = mikeAvg;
+            }
+
+            var maryScores = [97, 134, 105];
+            var maryAvg = (maryScores[0] + maryScores[1] + maryScores[2]) / 3;
+            if(maryAvg > winnerAvg) console.log("Mary is the overall winner.");
+            else if(winnerAvg > maryAvg) console.log("The winner remains the same.");
+        </script>
+    </body>
+</html>

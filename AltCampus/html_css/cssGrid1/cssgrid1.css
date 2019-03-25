@@ -1,0 +1,40 @@
+.box {
+  background-color: rgba(0, 255, 255, 0.7);
+  border-radius: 5px;
+  padding: 15px; }
+
+main {
+  font-weight: 600;
+  font-size: 22px;
+  color: #fff; }
+
+main {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-auto-rows: 100px;
+  grid-gap: 10px; }
+
+.header {
+  grid-column: 1/-1;
+  background-color: rgba(255, 165, 0, 0.8); }
+
+.exContent {
+  grid-row: 3/4;
+  grid-column: 4/-1;
+  background-color: rgba(255, 255, 0, 0.7); }
+
+.sidebar {
+  grid-column: 1/4;
+  grid-row: 2/5;
+  background-color: rgba(0, 128, 0, 0.7); }
+
+.mainContent {
+  grid-column: 4/-1;
+  background-color: rgba(255, 255, 0, 0.9); }
+
+.footer {
+  grid-column: 1/-1;
+  background-color: rgba(255, 0, 0, 0.8); }
+
+/*# sourceMappingURL=cssgrid1.css.map */

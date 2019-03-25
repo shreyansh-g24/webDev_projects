@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Typo, List 1</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <style type="text/css">
+        /*CSS Resets*/
+        *, *:before, *:after {
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        body {
+            background-color: #A8A39D;
+        }
+
+        /*navigation bar*/
+
+        .nav {
+            padding: 0;
+            background-color: #E47F1A; /*orange*/
+        }
+
+        .nav li {
+            display: inline-block;
+            margin: 1.5em;
+        }
+
+        .nav li:first-of-type {
+            margin-left: 3em;
+        }
+
+        .nav a {
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .footer {
+            background-color: #080707;
+        }
+
+        .footer li {
+            margin-top: 3em;
+            margin-bottom: 3em;
+        }
+
+        .header {
+            margin-bottom: 2.5%;
+        }
+
+        /*content menu*/
+        .menu-container {
+            overflow: hidden;
+        }
+
+        .menu:first-of-type {
+            margin-left: 10%;
+        }
+
+        .menu {
+            float: left;
+            background-color: hsla(207, 83%, 50%, 1);
+            box-shadow: 6px 6px 6px #000;
+            width: 25%;
+            height: 400px;
+            margin-right: 2%;
+            margin-bottom: 5%;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.75em;
+            padding-top: 1.5em;
+            padding-bottom: 1.5em;
+        }
+
+        .checkbox ul{
+            list-style-type: square;
+        }
+
+        /*content*/
+        article {
+            width: 85%;
+            margin-left: 7.5%;
+            margin-bottom: 5%;
+        }
+
+        dt {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 2%;
+        }
+
+        .second-last {
+            margin-bottom: 0;
+        }
+
+        dd {
+            margin-bottom: 2%;
+            font-size: 16px;
+            padding-left: 3em;
+            }
+
+    </style>
+</head>
+<body>
+    <nav class="nav header">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">FAQS</a></li>
+            <li><a href="#">Program</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="menu-container">
+        <section class="menu">
+            <ol>
+                <li>Home</li>
+                <li>Page</li>
+                <li>Services</li>
+                <li>About us</li>
+                <li>Portfolio</li>
+                <li value="20">Pricing</li>
+                <li>News</li>
+                <li>Testimonials</li>
+                <li>Contact Us</li>
+            </ol>
+        </section>
+        <section class="menu">
+            <ul>
+                <li>Home</li>
+                <li>Menu</li>
+                <li>
+                    <ol>
+                        <li>Menu 1:
+                            <ul>
+                                <li>Sub-menu 1</li>
+                                <li>Sub-menu 2</li>
+                            </ul>
+                        </li>
+                        <li>Menu 2</li>
+                        <li>Menu 3</li>
+                        <li>Menu 4</li>
+                        <li>Menu 5</li>
+                    </ol>
+                </li>
+                <li>How we work</li>
+                <li>About us</li>
+                <li>Contact Us</li>
+            </ul>
+        </section>
+        <section class="menu checkbox">
+            <ul>
+                <li>Home</li>
+                <li>Page</li>
+                <li>Services</li>
+                <li>About us</li>
+                <li>Portfolio</li>
+                <li>Pricing</li>
+                <li>News</li>
+                <li>Testimonials</li>
+                <li>Contact Us</li>
+            </ul>
+        </section>
+    </div>
+    <article>
+        <dl>
+            <dt>What is Lorem ipsum?</dt>
+            <dd>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets ining Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</dd>
+            <dt>Why do we need it?</dt>
+            <dd>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining esy unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</dd>
+            <dt class="second-last">Lorem Ipsum</dt>
+            <dt>Dummy Text</dt>
+            <dd>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</dd>
+        </dl>
+    </article>
+    <nav class="nav footer">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">FAQS</a></li>
+            <li><a href="#">Program</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0"/>
+        <title>Survey Form</title>
+        <style type="text/css">
+            *, *:before, *:after {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background-color: aqua;
+            }
+
+            .header {
+                text-align: center;
+            }
+
+            .header h1 {
+                font-size: 44px;
+            }
+
+            .header p {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+
+            #survey-form {
+                width: 80%;
+                margin: 0 auto;
+                font-size: 20px;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 5px;
+            }
+
+            ul {
+                list-style-type: none;
+            }
+
+            .row {
+                margin-bottom: 20px;
+                width: 100%;
+                /*border: 1px solid #000;*/
+                overflow: hidden;
+            }
+
+            .left {
+                float: left;
+            }
+
+            .right {
+                width: 40%;
+                float: right;
+            }
+
+            textarea {
+                height: 100px;
+            }
+
+            #submit {
+                display: block;
+                margin: 0 auto;
+                width: 200px;
+                height: 50px;
+                color: #fff;
+                font-size: 20px;
+                letter-spacing: .05em;
+                background-color: hsla(116, 87%, 52%, 0.8);
+            }
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <h1 id="title">Survey Form</h1>
+            <p id="description">Help us improve FreeCodeCamp</p>
+        </header>
+        <main>
+            <form id="survey-form" action="#" method="post">
+                <div class="row">
+                    <label class="left" id="name-label" for="name">*Name:</label>
+                    <input class="right" id="name" type="text" name="name" placeholder="Name" required/>
+                </div>
+                <div class="row">
+                    <label class="left" id="email-label" for="email">*Email:</label>
+                    <input class="right" id="email" type="email" name="email" placeholder="Email" required/>
+                </div>
+                <div class="row">
+                    <label class="left" id="number-label" for="number">*Age:</label>
+                    <input class="right" id="number" type="number" name="age" placeholder="Age" required min="1" max="120"/>
+                </div>
+                <div class="row">
+                    <label class="left" for="dropdown">What best describes your current role?</label>
+                    <select class="right" id="dropdown">
+                        <option value="student">Student</option>
+                        <option value="learner">Learner</option>
+                        <option value="job">Full Time Job</option>
+                        <option value="retired">Retired</option>
+                        <option value="reserved">Prefer not to say</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <legend class="left">How likely is it that you'll recomment FCC to a friend?</legend>
+                    <ul class="right">
+                        <li>
+                            <input class="cb" id="def" type="radio" name="radio" value="1" checked/>
+                            <label class="cb" for="def">Definitely</label>
+                        </li>
+                        <li>
+                            <input class="cb" id="maybe" type="radio" name="radio" value="2"/>
+                            <label class="cb" for="maybe">Maybe</label>
+                        </li>
+                        <li>
+                            <input class="cb" id="notSure" type="radio" name="radio" value="3"/>
+                            <label class="cb" for="notSure">Not sure</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <legend class="left">Things that should be improved in the future in FCC:</legend>
+                    <ul class="right">
+                        <li>
+                            <input class="cb" id="fep" type="checkbox" name="checkbox" value="1"/>
+                            <label class="cb" for="fep">Front-end Projects</label>
+                        </li>
+                        <li>
+                            <input class="cb" id="bep" type="checkbox" name="checkbox" value="2"/>
+                            <label class="cb" for="bep">Back-end Projects</label>
+                        </li>
+                        <li>
+                            <input class="cb" id="datavis" type="checkbox" name="checkbox" value="3"/>
+                            <label class="cb" for="datavis">Data Visualisations</label>
+                        </li>
+                        <li>
+                            <input class="cb" id="chal" type="checkbox" name="checkbox" value="4"/>
+                            <label class="cb" for="chal">Challenges</label>
+                        </li>
+                        <li>
+                            <input class="cb" id="osc" type="checkbox" name="checkbox" value="5"/>
+                            <label class="cb" for="osc">Open Source community</label>
+                        </li>
+                        <li>
+                            <input class="cb" id="meet" type="checkbox" name="checkbox" value="6"/>
+                            <label class="cb" for="meet">Meetups</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <label class="left" for="comments">Any Comments or Suggestions?</label>
+                    <textarea class="right" id="comments" placeholder="Enter your comments here"></textarea>
+                </div>
+                <button id="submit" type="submit">Submit</button>
+            </form>
+        </main>
+    </body>
+</html>

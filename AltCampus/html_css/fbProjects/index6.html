@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Media, Forms &amp; Tables</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <style type="text/css">
+        *, *:after, *:before {
+            font-family: 'Roboto', sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        body {
+            background-color: #194C19;
+            text-align: center;
+        }
+
+        header {
+            background-image: linear-gradient(135deg, #FFF, #175F86 65%);
+            width: 75%;
+            height: 200px;
+            margin: 0px auto;
+            margin-bottom: -7px;
+        }
+
+        nav li {
+            display: inline-block;
+            font-size: 14px;
+            margin-right: 3em;
+            margin-bottom: 3em;
+        }
+
+        nav li:last-of-type {
+            margin-right: 0;
+        }
+
+        nav h1 {
+            font-size: 28px;
+        }
+
+        .hr {
+            display: inline-block;
+            width: 75%;
+            height: 8px;
+            background-color: #24DA8B;
+        }
+
+        .media {
+            display: inline-block;
+            background-color: hsla(154, 5%, 70%, 1);
+            height: 210px;
+            width: 75%;
+            margin-top: -7px;
+            margin-bottom: -7px;
+            overflow: hidden;
+        }
+
+        figure {
+            float: left;
+            width: 33%;
+            font-size: 14px;
+            padding: 7px;
+        }
+
+        img {
+            height: 100px;
+            width: 100px;
+            margin-bottom: 1.1em;
+        }
+
+        audio {
+            width: 220px;
+            margin-top: 1.5em;
+            margin-bottom: 2.6em;
+        }
+
+        video {
+            width: 220px;
+        }
+
+        .middle {
+            display: inline-block;
+            width: 75%;
+            background-color: hsla(110, 73%, 51%, 0.98);
+            padding: 10px 7px 7px 7px;
+        }
+
+        .middle p {
+            font-size: 14px;
+            margin-top: 3px;
+            margin-bottom: 10px;
+        }
+
+        .middle iframe {
+            display: inline-block;
+            height: 400px;
+            width: 650px;
+            margin-bottom: 10px;
+        }
+
+        .form {
+            display: inline-block;
+            width: 75%;
+            background-color: #3FBDBF;
+        }
+
+        legend {
+            font-size: 18px;
+            font-weight: 700;
+            padding: 15px;
+        }
+
+        form {
+            background-color: #FFF;
+            margin: 15px;
+            padding: 15px;
+        }
+
+        input {
+            border: 1px solid hsla(0, 0%, 48%, 0.4);
+            padding: 5px;
+        }
+
+        .name {
+            height: 40px;
+            width: 40%;
+            margin-right: 15px;
+        }
+
+        .email {
+            height: 40px;
+            width: 40%;
+        }
+
+        .subject {
+            height: 40px;
+            width: 82.75%;
+            margin: 15px;
+        }
+
+        .comment {
+            height: 200px;
+            width: 82.75%;
+            border: 1px solid hsla(0, 0%, 48%, 0.4);
+            padding: 5px;
+        }
+
+        button {
+            display: block;
+            padding: 6px;
+            height: 45px;
+            width: 150px;
+            background-color: #194C19;
+            color: #FFF;
+            font-size: 18px;
+            border-radius: 5px;
+            border: 1px solid #000;
+            margin-top: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        footer {
+            display: inline-block;
+            width: 75%;
+            background-color: hsla(120, 0%, 20%, 0.95);
+            padding: 15px;
+            color: #FFF;
+            font-size: 18px;
+        }
+
+        footer iframe {
+            width: 95%;
+            height: 300px;
+        }
+
+        footer li {
+            margin-right: 10px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        footer li:last-of-type {
+            margin-right: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>Home</li>
+                <li>About</li>
+                <li>Contact</li>
+            </ul>
+        </nav>
+        <h1>AltCampus</h1>
+    </header>
+    <div class="hr"></div>
+    <article>
+        <section class="media">
+            <figure>
+                <img src="./index5.jpg"/>
+                <figcaption>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec risus iaculis, ultrices mauris quis, varius nibh</figcaption>
+            </figure>
+            <figure>
+                <audio src="#" controls></audio>
+                <figcaption>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec risus iaculis, ultrices mauris quis, varius nibh.</figcaption>
+            </figure>
+            <figure>
+                <video src="#" controls poster="./index5.jpg"></video>
+                <figcaption>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec risus iaculis, ultrices mauris quis, variu</figcaption>
+            </figure>
+        </section>
+        <section class="middle">
+            <h2>A Classic</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec risus iaculis, ultrices mauris quis, varius nibh. Phasellus fermentum arcu nisi, eu maximus lacus rutrum sit amet.</p>
+            <iframe src="https://www.youtube.com/embed/GE4i8qiDogQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </section>
+        <section class="form">
+            <form action="#" method="post">
+                <legend>CONTACT US</legend>
+                <input class="name" type="text" name="user-info" required placeholder="Your Name"/>
+                <input class="email" type="email" name="user-info" required placeholder="Email Address"/>
+                <input class="subject" type="text" name="user-info" placeholder="Subject"/>
+                <textarea class="comment" name="user-info" placeholder="Leave your comment here."></textarea>
+                <button name="user-info" >Send Message</button>
+            </form>
+        </section>
+    </article>
+    <footer>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3376.070578989796!2d76.37135479999998!3d32.20232879999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391b530e24726e0d%3A0x71ff0cae0784712d!2sAltCampus!5e0!3m2!1sen!2sin!4v1551246421408" frameborder="0" style="border:0" allowfullscreen></iframe>
+        <nav>
+        <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Contact</li>
+        </ul>
+    </nav>
+    </footer>
+</body>
+</html>

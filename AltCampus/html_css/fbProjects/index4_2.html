@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Positioning 2</title>
+    <style type="text/css">
+        /*CSS Reset*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /*Basic styles*/
+        body {
+            text-align: center;
+            background: rgb(171, 175, 180);
+        }
+
+        h2, p {
+            margin: 10px;
+        }
+
+        h1 {
+            padding: 10px;
+            position: fixed;
+            background: rgb(171, 175, 180);
+            width: 100%;
+        }
+
+        article {
+            display: inline-block;
+            width: 80%;
+            background-color: white;
+            border-radius: 10px;
+            margin-top: 60px;
+        }
+
+        section {
+            float: left;
+            width: 25%;
+        }
+
+        .middle-section {
+            width: 50%;
+            margin-left: 25%;
+        }
+
+        .border-section {
+            padding-top: 40px;
+        }
+
+        .left-section {
+            position: fixed;
+            width: 20%;
+        }
+
+        .quote {
+            padding: 20px;
+            margin: 15px;
+            font-style: italic;
+        }
+
+        .image {
+            height: 300px;
+            width: 300px;
+            box-sizing: content-box;
+            border-radius: 10px;
+            border: 3px solid red;
+            background-color: aqua;
+            margin: 10px;
+        }
+
+        /*clearfix: alternative is to use overflow: hidden in the parent article element*/
+        .clearfix:before, .clearfix:after {
+            content: " ";
+            display: table;
+        }
+
+        .clearfix:before {
+            *zoom: 1;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <h1>Extracts from "some random text"</h1>
+    <article class="clearfix">
+        <section class="border-section left-section">
+            <p>Introductory the first cat snow habits trained cats usefulness of cats</p>
+        </section>
+        <section class="middle-section">
+            <h2>Usefulness of cats</h2>
+            <img class="image" src="?">
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            <p class="quote">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronicLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronicLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronicLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronicLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronicLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronicLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronicLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</p>
+        </section>
+        <section class="border-section">
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an</p>
+        </section>
+    </article>
+</body>
+</html>
