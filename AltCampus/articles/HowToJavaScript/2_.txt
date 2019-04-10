@@ -1,0 +1,24 @@
+How to JavaScript:
+2.
+==========================================
+
+-What variables?
+Imagine a programming language that only accepts absolute values. That is, for even a program as basic as adding two numbers you'd have to edit the code to update the values of the two numbers every time you want to add different numbers. That's where variables come in.
+
+-What is a variable?
+Variables act like a name to access the data stored in the memory subsequently allowing us to update the value as per our needs. To create a variable in javascript use the 'let' keyword followed by a name for the variable.
+
+    let message = "Hello World!";
+    alert(message); // shows the message
+
+The equal-to after the variable name is the assignment operator, assigning the value on its right hand side to the left. The value on the right hand side is now stored in a memory location which can be accessed using the variable name. Defining the variable with a value is optional. We could simply have defined the variable like
+
+    let message;
+
+...but trying to print the value without initialising the variable will return undefined.
+
+
+
+
+
+
