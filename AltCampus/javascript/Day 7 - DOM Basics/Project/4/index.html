@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <title>About Me</title>
+</head>
+<body>
+  <h1>About Me</h1>
+
+  <ul>
+    <li>Nickname: <span id="nickname"></span>
+    <li>Favorites:  <span id="favorites"></span>
+    <li>Hometown: <span id="hometown"></span>
+   </ul>
+   <script type="text/javascript">
+       document.body.style.fontFamily = "Arial, sans-serif";
+       document.querySelector("#nickname").textContent = "abc";
+       document.querySelector("#favorites").textContent = "a b c";
+       document.querySelector("#hometown").textContent = "xyz";
+
+       // updating color of the list items
+       Array.from(document.querySelector("ul").children).forEach((val) => val.style.color = "red");
+
+       // new img element with an image
+       let image = document.createElement("img");
+       image.src = "./image.jpg";
+       image.style.height = "200px";
+       image.style.width = "200px";
+       document.body.appendChild(image);
+
+   </script>
+ </body>
+</html>

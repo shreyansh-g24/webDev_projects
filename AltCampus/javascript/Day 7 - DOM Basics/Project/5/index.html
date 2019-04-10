@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <title>Book List</title>
+ </head>
+<body>
+
+<h1>My Book List</h1>
+<script>
+    let bookList = [
+    {
+        title: 'The Design of EveryDay Things',
+        author: 'Don Norman',
+        alreadyRead: false
+    },
+    {
+        title: 'The Most Human Human',
+        author: 'Brian Christian',
+        alreadyRead: true
+    }
+  ];
+
+  // Displaying the books using p tag
+  for(let book of bookList){
+    let p = document.createElement("p");
+    p.className = "book";
+    p.textContent = book.title + " by " + book.author;
+    document.body.appendChild(p);
+  }
+
+
+  // Displaying books using ul
+  let unorderedList = document.createElement("ul");
+  for(let book of bookList){
+    let li = document.createElement("li");
+    li.textContent = book.title + " by " + book.author;
+    unorderedList.appendChild(li);
+  }
+  document.body.appendChild(unorderedList);
+
+  // Adding book cover url and image element for each book
+  let bookPara = Array.from(document.querySelectorAll(".book"));
+  for(let i = 0, n = bookPara.length; i < n; i++){
+    // resetting text content property
+    bookPara[i].textContent = "";
+    // making the link
+    let url = document.createElement("a");
+    url.href = "#";
+    url.textContent = bookList[i].title;
+    // adding the book image
+    let image = document.createElement("img");
+    image.src = "./image.jpg";
+    image.style.height = "100px";
+    image.style.width = "100px";
+    image.style.marginRight = "20px";
+    // adding author information
+    let text = document.createElement("span");
+    text.textContent = " by " + bookList[i].author;
+    // appending the elements to the p tag
+    bookPara[i].appendChild(image);
+    bookPara[i].appendChild(url);
+    bookPara[i].appendChild(text);
+  }
+
+  // changing the background color of the books depending upon whether you have read it or not
+  for(let i = 0, n = bookPara.length; i < n; i++){
+    if(bookList[i].alreadyRead) bookPara[i].style.backgroundColor = "red";
+  }
+
+</script>
+
+</body>
+</html>

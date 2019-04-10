@@ -169,9 +169,9 @@ would leave us with the same issue. So we'll have to use deep cloning algorithm.
 The following custom made function will work for objects and nested objects but yet to be updated to support nested arrays.
 */
 // TODO
-function cloning(obj, destination){
-  for(let prop in obj){
-    if(typeof(obj[prop]) === "object") cloning(obj[prop], destination[prop]);
-    else destination[prop] = obj[prop];
-  }
-}
+// function cloning(obj, destination){
+//   for(let prop in obj){
+//     if(typeof(obj[prop]) === "object") cloning(obj[prop], destination[prop]);
+//     else destination[prop] = obj[prop];
+//   }
+// }

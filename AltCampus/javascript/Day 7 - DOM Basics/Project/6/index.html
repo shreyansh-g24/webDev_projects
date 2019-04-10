@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>JS + CSS Clock</title>
+        <style type="text/css">
+            /* CSS Reset */
+            *, *:before, *:after {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: Arial;
+            }
+
+            /* Styles */
+            /* Instructions */
+            .instructions-container {
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                width: 150px;
+                background-color: rgba(255, 255, 255, 1);
+            }
+            .instructions-list {
+                display: none;
+                border-radius: 10px;
+                box-shadow: 5px 5px 5px 0 rgb(78, 74, 74);
+                padding: 30px;
+            }
+            .instructions {
+                margin-bottom: 10px;
+            }
+            .instructions-btn {
+                padding: 10px;
+                border: 1px solid rgba(0, 0, 0, 0.4);
+                border-radius: 10px;
+                box-shadow: 5px 5px 5px 0 rgb(78, 74, 74);
+            }
+            /* Divider */
+            .divider {
+                width: 80%;
+                border: 1px solid #000;
+                margin: 0 auto;
+            }
+            .divider:first-of-type {
+                margin-top: 80px;
+            }
+            /* Container */
+            .container {
+                padding: 40px;
+                width: 100%;
+            }
+
+            /* Analog Clock */
+            .clock-container {
+                margin: 0 auto;
+                border: 10px solid #000;
+                border-radius: 50%;
+                height: 500px;
+                width: 500px;
+                position: relative;
+            }
+
+            .clock-center {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                background-color: #000;
+                box-shadow: 0 0 10px 10px #000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .clock-hours, .clock-minutes, .clock-seconds {
+                position: absolute;
+                background-image: linear-gradient(#000 50%, #fff 60%);
+            }
+
+            .clock-hours {
+                height: 260px;
+                width: 15px;
+            }
+
+            .clock-minutes {
+                height: 400px;
+                width: 10px;
+            }
+
+            .clock-seconds {
+                /*display: none;*/
+                height: 480px;
+                width: 5px;
+            }
+
+            /* Digital Clock */
+            .clock-digital-container {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .clock-digital, .clock-countdown {
+                margin-right: 20px;
+                padding: 20px;
+                border: 2px solid #000;
+                border-radius: 10px;
+                font-size: 36px;
+            }
+            .clock-countdown {
+                color: #f00;
+                border: 2px solid #f00;
+            }
+
+            /* TODO LIST */
+            /* TODO container and input*/
+            .todo-container {
+                width: 70%;
+                margin: 0 auto;
+                border-radius: 10px;
+                box-shadow: 5px 5px 5px 0 rgb(78, 74, 74);
+                padding: 50px;
+            }
+            .todo-input, .todo-input-time {
+                display: block;
+                height: 50px;
+                width: 800px;
+                margin: 0 auto 20px auto;
+                box-shadow: 0 0 2.5px 2.5px rgb(78, 74, 74) inset;
+                border: 1px solid rgb(78, 74, 74);
+                border-radius: 10px;
+                padding: 20px;
+                font-size: 28px;
+            }
+            .todo-input-time {
+                width: 150px;
+                height: 40px;
+                font-size: 24px;
+            }
+            .todo-submit, .todo-clear {
+                display: block;
+                height: 40px;
+                width: 150px;
+                margin: 0 auto;
+                border-radius: 10px;
+                border: 2px solid #000;
+                background-color: #fff;
+                font-size: 22px;
+            }
+            .temp-todo-input {
+                height: 100%;
+                font-size: 28px;
+            }
+            .todo-input:focus, .todo-input-time:focus, .todo-submit:focus, .todo-clear:focus, .temp-todo-input:focus {
+                outline: none;
+            }
+            .todo-submit:focus, .todo-submit:hover {
+                background-color: rgba(0, 255, 0, 0.5);
+            }
+            .todo-clear:focus, .todo-clear:hover {
+                background-color: rgba(255, 0, 0, 0.8);
+            }
+            /* TODO items & completed items*/
+            .todo-item-container, .todo-completed-container {
+                padding: 20px;
+            }
+            .todo-completed-list {
+                margin-bottom: 20px;
+            }
+            p.todo-item, p.todo-completed-item {
+                font-size: 28px;
+            }
+            .todo-item-counter {
+                font-size: 16px;
+                margin: 10px;
+                font-style: italic;
+            }
+            li.todo-item, li.todo-completed-item {
+                text-indent: 20px;
+            }
+            li.todo-item:hover {
+                background-color: rgba(0, 255, 0, 0.5);
+            }
+            li.todo-completed-item:hover {
+                background-color: rgba(255, 0, 0, 0.8);
+            }
+            .todo-item, .todo-completed-item {
+                display: block;
+                border-bottom: 2px solid rgb(78, 74, 74);
+                padding-top: 5px;
+                padding-bottom: 5px;
+                font-size: 24px;
+            }
+            .todo-item > * {
+                display: inline;
+            }
+            /* TODO Completed items */
+            .todo-completed-item {
+                border-bottom: 2px solid rgba(78, 74, 74, 0.6);
+                font-style: italic;
+                text-decoration: line-through;
+                font-size: 18px;
+                color: rgba(78, 74, 74, 0.6);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- HTML BODY -->
+        <header>
+            <nav class="instructions-container">
+                <p class="instructions-btn">CLICK TO TOGGLE INSTRUCTIONS</p>
+                <ul class="instructions-list">
+                   <li class="instructions">Click Add for adding a task</li>
+                   <li class="instructions">Click Clear to clear completed tasks</li>
+                   <li class="instructions">Use checkbox for checking a task on or off</li>
+                   <li class="instructions">Double click time or the task to edit them respectively</li>
+                   <li class="instructions">Single Click the task to start a countdown timer for time left until the task time</li>
+                </ul>
+            </nav>
+        </header>
+        <!-- DIVIDER -->
+        <hr class="divider"/>
+        <!-- ANALOG CLOCK -->
+        <section class="container">
+            <div class="clock-container">
+                <div class="clock-center">
+                    <div class="clock-hours"></div>
+                    <div class="clock-minutes"></div>
+                    <div class="clock-seconds"></div>
+                </div>
+            </div>
+        </section>
+        <!-- DIVIDER -->
+        <hr class="divider"/>
+        <!-- DIGITAL CLOCK -->
+        <section class="container">
+            <div class="clock-digital-container">
+                <div class="clock-digital"></div>
+                <div class="clock-countdown">00:00:00</div>
+            </div>
+        </section>
+        <!-- DIVIDER -->
+        <hr class="divider"/>
+        <!-- TODO LIST -->
+        <section class="container">
+            <div class="todo-container">
+                <div>
+                    <input class="todo-input" type="text" name="todoItem" placeholder="Add Todos:"/>
+                    <input class="todo-input-time" type="time" name="taskTime" value="00:00"/>
+                    <button class="todo-submit">Add Item</button>
+                </div>
+                <div class="todo-item-container">
+                    <p class="todo-item">TODO: </p>
+                    <ul class="todo-list"></ul>
+                    <p class="todo-item-counter"></p>
+                </div>
+                <div class="todo-completed-container">
+                    <p class="todo-completed-item">Completed Items:</p>
+                    <ul class="todo-completed-list"></ul>
+                    <button class="todo-clear">Clear</button>
+                </div>
+            </div>
+        </section>
+        <!-- DIVIDER -->
+        <hr class="divider"/>
+
+        <!-- javscript -->
+        <script type="text/javascript">
+            /* CLOCK */
+            // controlling the clock; init function
+            function displayClock(){
+                // initalising the current time
+                let timeNow = new Date();
+                // initial display of the time to avoid a second's lag by setInterval
+                updateClock(timeNow);
+                updateDigital(timeNow);
+                // updating and displaying the time every second
+                setInterval(function(){
+                    timeNow = updateTime();
+                    updateClock(timeNow);
+                    updateDigital(timeNow);
+                }, 1000);
+            }
+
+            // ANALOG CLOCK
+            function updateClock(time){
+                // declaring time variables
+                let hours = time.getHours();
+                let minutes = time.getMinutes();
+                let seconds = time.getSeconds();
+                let milliseconds = time.getMilliseconds();
+                // calculating degree of hand rotation
+                let hourDeg = (hours * 30) + (minutes * 0.5);
+                let minuteDeg = (minutes * 6) + (seconds * 0.1);
+                let secondDeg = (seconds * 6);
+                // updating the hands of the clock
+                document.querySelector(".clock-hours").style.transform = "rotate(" + hourDeg + "deg)";
+                document.querySelector(".clock-minutes").style.transform = "rotate(" + minuteDeg + "deg)";
+                document.querySelector(".clock-seconds").style.transform = "rotate(" + secondDeg + "deg)";
+            }
+
+            // DIGITAL CLOCK
+            function updateDigital(time){
+                // declaring time variables
+                let hours = time.getHours();
+                let minutes = time.getMinutes();
+                let seconds = time.getSeconds();
+                // updating the variables
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                // updating the clock
+                document.querySelector(".clock-digital").innerText = hours + ":" + minutes + ":" + seconds;
+            }
+
+            // updating the time
+            function updateTime(){
+                return new Date();
+            }
+
+            // TODO LIST
+            // creating a todo item
+            function todoInit(){
+                // listening input button click to create item
+                document.querySelector(".todo-submit").addEventListener("click", () => createTodoItem());
+            }
+
+            // creating todo item
+            function createTodoItem(){
+                // selecting the elements
+                let todoInput = document.querySelector(".todo-input");
+                let todoInputTime = document.querySelector(".todo-input-time");
+                // checking if input is empty
+                if(todoInput.value === "") {
+                    alert("Task cannot be empty.");
+                    return 1;
+                }
+                // creating the data
+                data.push({
+                    task: todoInput.value,
+                    time: todoInputTime.value,
+                    isDone: false,
+                });
+                updateTodoList();
+                // resetting value
+                todoInput.value = "";
+                todoInputTime.value = "00:00";
+            }
+
+            function updateTodoList(){
+                // selecting elements
+                let todoCompletedList = document.querySelector(".todo-completed-list");
+                let todoList = document.querySelector(".todo-list");
+                // resetting parent elements
+                todoCompletedList.innerHTML = "";
+                todoList.innerHTML = "";
+                // updating the lists from data set
+                let counter = 0;
+                for(let i = 0, n = data.length; i < n; i++){
+                    if(data[i].isDone) {
+                        // creating todo comnpleted item
+                        let todoCompletedItem = document.createElement("li");
+                        todoCompletedItem.classList.add("todo-completed-item");
+                        todoCompletedItem.innerHTML = `<input class="checkbox${i}" type="checkbox" data-id="${i}" checked> <span class="todo-task-time${i}">${data[i].time}</span> : <span class="todo-task${i}">${data[i].task}</span>`;
+                        todoCompletedList.appendChild(todoCompletedItem);
+                    }
+                    else if(!data[i].isDone) {
+                        // creating todo item
+                        let todoItem = document.createElement("li");
+                        todoItem.classList.add("todo-item");
+                        todoItem.innerHTML = `<input class="checkbox${i}" type="checkbox" data-id="${i}"> <span class="todo-task-time${i}">${data[i].time}</span> : <span class="todo-task${i}">${data[i].task}</span>`;
+                        todoList.appendChild(todoItem);
+                    }
+                    // adding event listener to checkbox if it's checked or unchecked
+                    let checkbox = document.querySelector(`.checkbox${i}`);
+                    checkbox.addEventListener("change", () => {
+                        if(checkbox.checked){
+                            removeTodoItem(i);
+                        }
+                        else if(!checkbox.checked){
+                            reAddTodoItem(i);
+                        }
+                    });
+                    // adding event listener to todo task for editing
+                    let todoTask = document.querySelector(`.todo-task${i}`);
+                    todoTask.addEventListener("dblclick", () => updateTodoItem(i));
+                    // adding event listener to todo time for editing
+                    let todoTaskTime = document.querySelector(`.todo-task-time${i}`);
+                    todoTaskTime.addEventListener("dblclick", () => updateTodoTime(i));
+                    // adding event listener for countdown
+                    todoTask.addEventListener("click", () => startCountDown(i));
+                    // updating the counter
+                    if(!data[i].isDone) counter++;
+                    document.querySelector(".todo-item-counter").innerText = `${counter} Tasks Left`;
+                }
+                setLocalStorage();
+            }
+
+            // removing todo item
+            function removeTodoItem(index){
+                data[index].isDone = true;
+                updateTodoList();
+                clearBtnDisplay();
+            }
+
+            // re-adding todo item
+            function reAddTodoItem(index){
+                data[index].isDone = false;
+                updateTodoList();
+                clearBtnDisplay();
+            }
+
+            // updating the todo task
+            function updateTodoItem(index){
+                // selecting elements
+                let todoTask = document.querySelector(`.todo-task${index}`);
+                // resetting todo task HTML
+                todoTask.innerHTML = "";
+                // creating a temp input to receive update
+                let tempInput = document.createElement("input");
+                tempInput.type = "text";
+                tempInput.value = data[index].task;
+                tempInput.classList.add("temp-todo-input");
+                todoTask.appendChild(tempInput);
+                tempInput.addEventListener("keyup", (event) => {
+                    // To reassign the old task value if the user edits the task into an empty string.
+                    if(event.keyCode === 13 && tempInput.value === ""){
+                        alert("Task cannot be empty.");
+                        tempInput.value = data[index].task;
+                    }
+                    if(event.keyCode === 13){
+                        data[index].task = tempInput.value;
+                        // removing the input field and updating the task text
+                        todoTask.innerHTML = data[index].task;
+                        setLocalStorage();
+                    }
+                });
+                setLocalStorage();
+            }
+
+            // updating todo time
+            function updateTodoTime(index){
+                // selecting elements
+                let todoTaskTime = document.querySelector(`.todo-task-time${index}`);
+                // resetting todo time html
+                todoTaskTime.innerHTML = "";
+                let tempInput = document.createElement("input");
+                tempInput.type = "time";
+                tempInput.classList.add("temp-todo-input");
+                tempInput.value = data[index].time;
+                todoTaskTime.appendChild(tempInput);
+                tempInput.addEventListener("keyup", (event) => {
+                    // To reassign the old time value if the user edits the time into an empty time string.
+                    if(event.keyCode === 13 && tempInput.value === ""){
+                        alert("Time cannot be empty.");
+                        tempInput.value = data[index].time;
+                    }
+                    if(event.keyCode === 13){
+                        data[index].time = tempInput.value;
+                        todoTaskTime.innerHTML = data[index].time;
+                        setLocalStorage();
+                    }
+                });
+                setLocalStorage();
+            }
+
+            // clear button visibility
+            function clearBtnDisplay(){
+                let clearBtn = document.querySelector(".todo-clear");
+                let todoCompletedList = document.querySelector(".todo-completed-list");
+                // updating the visibility of clear button
+                if(todoCompletedList.innerHTML === "") clearBtn.style.display = "none";
+                else if(!(todoCompletedList.innerHTML === "")) clearBtn.style.display = "block";
+            }
+
+            // clearing completed tasks
+            function clearCompletedTasks(){
+                // selecting elements
+                let clearBtn = document.querySelector(".todo-clear");
+                // adding event listener to clear button
+                clearBtn.addEventListener("click", () => clearData());
+            }
+
+            // clearing data of completed tasks
+            function clearData(){
+                let tempData = [];
+                for(let i = 0, n = data.length; i < n; i++){
+                    if(!data[i].isDone) tempData.push(data[i]);
+                }
+                data = tempData;
+                updateTodoList();
+                clearBtnDisplay();
+            }
+
+            // starting countdown in digital clock
+            function startCountDown(index){
+                // clearing older setInterval if any
+                clearInterval(countdownIntervalID);
+                // resetting timer background color
+                document.querySelector(".clock-countdown").style.backgroundColor = "#fff";
+                // declaring time variables
+                let taskTimeArr = data[index].time.split(":");
+                let taskTime = new Date();
+                taskTime.setHours(+taskTimeArr[0], +taskTimeArr[1], 0);
+                // recording the difference
+                let timeLeft = taskTime.getTime() - (new Date).getTime();
+                // To check if taskTime is earlier or after current time
+                if(timeLeft <= 1000) {
+                    taskTime.setDate(taskTime.getDate() + 1);
+                    timeLeft = taskTime.getTime() - (new Date).getTime();
+                }
+                // initialising countdown
+                countdownIntervalID = setInterval(() => {
+                    if(timeLeft > 1000) {
+                        updateTimer(timeLeft);
+                        timeLeft -= 1000;
+                    }
+                    else if(timeLeft <= 1000) {
+                        updateTimer(0);
+                        updateTimerColor();
+                    }
+                }, 1000);
+            }
+
+            // updating timer
+            function updateTimer(time){
+                // declaring and calculating time left variables
+                time = Math.round(time/1000);
+                let hours = Math.trunc(time / (60 * 60));
+                time = time - (hours * 60 * 60);
+                let minutes = Math.trunc(time / 60);
+                time = time - (minutes * 60);
+                let seconds = time;
+                // updating the variables
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                // updating the clock
+                document.querySelector(".clock-countdown").innerText = hours + ":" + minutes + ":" + seconds;
+            }
+
+            // updating timer background color
+            function updateTimerColor(){
+                let colorArr = ["red", "green", "blue", "aquamarine", "aqua", "tomato", "orange", "yellow", "teal"];
+                // updating the background color of the timer
+                document.querySelector(".clock-countdown").style.backgroundColor = colorArr[Math.floor(Math.random() * colorArr.length)];
+            }
+
+            // controlling instructions view
+            function toggleInstructionsDisplay() {
+                // selecting elements
+                let instructionsBtn = document.querySelector(".instructions-btn");
+                let instructionsList = document.querySelector(".instructions-list");
+                let toggle = true;
+                // adding event listener to instructions button
+                instructionsBtn.addEventListener("click", () => {
+                    if(toggle) {
+                        instructionsList.style.display = "block";
+                        toggle = false;
+                    }
+                    else if(!toggle) {
+                        instructionsList.style.display = "none";
+                        toggle = true;
+                    }
+                });
+            }
+
+            // local storage integration
+            function setLocalStorage() {
+                let dataString = JSON.stringify(data);
+                localStorage.setItem("todoData", dataString);
+            }
+            function getLocalStorage() {
+                let dataString = localStorage.getItem("todoData");
+                if(dataString !== null) {
+                    data = JSON.parse(dataString);
+                }
+            }
+            function updateLocalStorage() {
+                setLocalStorage();
+                getLocalStorage();
+            }
+
+            // declaring global variables
+            let data = [];
+            let countdownIntervalID = 0;
+
+            // execution
+            // to show initial todos
+            getLocalStorage();
+            updateTodoList();
+            // initialising all functions
+            toggleInstructionsDisplay();
+            displayClock();  // for inital clock work on page load
+            todoInit();
+            clearCompletedTasks();
+            clearBtnDisplay();  // for inital display status
+        </script>
+    </body>
+</html>

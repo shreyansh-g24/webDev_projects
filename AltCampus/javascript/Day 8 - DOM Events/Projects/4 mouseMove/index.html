@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <title>MouseMove</title>
+        <style type="text/css">
+            body {
+                height: 70vh;
+                width: 70vw;
+                margin: 20px;
+                padding: 50px;
+                border: 10px solid green;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Move Mouse Cursor</h1>
+        <p>screenX: <span class="screenX"></span></p>
+        <p>screenY: <span class="screenY"></span></p>
+        <p>clientX: <span class="clientX"></span></p>
+        <p>clientY: <span class="clientY"></span></p>
+
+        <script type="text/javascript">
+            function positionUpdate(event){
+                document.querySelector(".screenX").innerText = event.screenX;
+                document.querySelector(".screenY").innerText = event.screenY;
+                document.querySelector(".clientX").innerText = event.clientX;
+                document.querySelector(".clientY").innerText = event.clientY;
+            }
+
+            function handleEvent(){
+                document.body.addEventListener("mousemove", (event) => positionUpdate(event));
+            }
+            handleEvent();
+        </script>
+    </body>
+</html>

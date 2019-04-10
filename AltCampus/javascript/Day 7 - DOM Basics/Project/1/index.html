@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Learning the DOM</title>
+  </head>
+  <body>
+    <h1>Document Object Model</h1>
+    <script>
+        // making and appending the paragraph
+        let p = document.createElement("p");
+        p.textContent = "Hello JavaScript!";
+        p.innerHTML = "I love <strong>JavaScript</strong>";
+        document.body.appendChild(p);
+        // making and appending a list
+        let ul = document.createElement("ul");
+        ul.innerHTML = "<li>Buy groceries</li><li>Feed the cat</li><li>Do laundry</li>";
+        document.body.appendChild(ul);
+        // creating a new list item and appending with the ul
+        let li = document.createElement("li");
+        li.innerText = "Steal neighbour's dog";
+        ul.appendChild(li);
+        // removing a list item from unordered list
+        // ul.removeChild(ul.lastElementChild);
+        ul.lastElementChild.remove();
+    </script>
+  </body>
+</html>
