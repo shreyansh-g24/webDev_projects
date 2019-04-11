@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=yes">
+        <title>Order Menu</title>
+        <style type="text/css">
+            /* CSS Reset */
+            *, *:after, *:before {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            /* Clearfix */
+            .clearfix, .clearfix:before, .clearfix:after {
+                display: table;
+                content: "";
+            }
+            .clearfix:after {
+                clear: both;
+            }
+            .clearfix {
+                *zoom: 1;
+            }
+
+            /* Styles */
+            .menuForm {
+                width: 40%;
+                margin: 50px auto 0 auto;
+                /*border: 1px solid rgba(0, 0, 0, 0.5);*/
+                box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.4);
+                padding: 20px;
+            }
+
+            .menuHead {
+                font-size: 30px;
+                margin-bottom: 10px;
+            }
+
+            .menuItemList {
+                margin-bottom: 20px;
+                list-style-type: none;
+            }
+
+            .menuItem {
+                margin-bottom: 10px;
+                font-size: 20px;
+            }
+
+            .menuItemChecked {
+                text-decoration: line-through;
+            }
+
+            .menuInput {
+                float: left;
+                width: 60%;
+                border-radius: 10px;
+                padding: 10px;
+                font-size: 20px;
+            }
+
+            .menuButton {
+                float: right;
+                width: 30%;
+                border-radius: 10px;
+                padding: 10px;
+                font-size: 20px;
+            }
+
+            .menuInput:focus, .menuButton:focus, .menuClear:focus {
+                outline: none;
+            }
+
+        </style>
+    </head>
+    <body>
+        <main>
+            <form class="menuForm clearfix">
+                <legend class="menuHead">Choose Items:</legend>
+                <ul class="menuItemList">
+                </ul>
+                <input class="menuInput" type="text" name="item" placeholder="Item Name"/>
+                <button class="menuButton">+ Add Item</button>
+            </form>
+        </main>
+
+        <!-- Javascript -->
+        <script type="text/javascript">
+            // Function declarations //
+            // handling the event
+            function handleEvent(){
+                // listening for items' addition
+                let menuForm = document.querySelector(".menuForm");
+                menuForm.addEventListener("submit", (event) => {
+                    event.preventDefault();  // disable page reloading
+                    let menuInput = document.querySelector(".menuInput");
+                    updateData(data, menuInput.value, false);
+                    // resetting menuInput
+                    menuInput.value = "";
+
+                });
+                // listening for items click
+                let menuItemList = document.querySelector(".menuItemList");
+                menuItemList.addEventListener("click", (event) => toggleDone(event, data));
+            }
+
+            // updating the data
+            function updateData(items = [], itemName, itemDone, index = -1){
+                if(itemName !== "" && index === -1){
+                    items.push({
+                        item: itemName,
+                        isDone: itemDone,
+                    });
+                }
+                else if(itemName !== "") {
+                    items[index].isDone = itemDone;
+                }
+                else if(itemName === "") alert("No item name found");
+
+                // updating local storage
+                localStorage.setItem("menuItems", JSON.stringify(items));
+                // repopulating the list
+                populateMenu(items);
+            }
+
+            // populating the menu list
+            function populateMenu(items = []){
+                // selecting elements
+                let menuItemList = document.querySelector(".menuItemList");
+
+                // updating the menu items
+                menuItemList.innerHTML = items.map((value, ind) => {
+                    if(value.isDone) {
+                    return `
+                        <li class="menuItem menuItemChecked">
+                            <input type="checkbox" data-index=${ind} id="item${ind}" ${value.isDone ? "checked" : ""}/>
+                            <label for="item${ind}">${value.item}</label>
+                        </li>
+                    `;
+                    }
+                    else if(!value.isDone) {
+                    return `
+                        <li class="menuItem">
+                            <input type="checkbox" data-index=${ind} id="item${ind}" ${value.isDone ? "checked" : ""}/>
+                            <label for="item${ind}">${value.item}</label>
+                        </li>
+                    `;
+                    }
+                }).join("");
+            }
+
+            // toggling the item's done status
+            function toggleDone(event, items = []){
+                if(!event.target.matches("input")) return 1;
+                const element = event.target;
+                const index = element.dataset.index;
+                updateData(items, items[index].item, !items[index].isDone, index);
+            }
+
+            // declaring variable //
+            // setting data equal to local storage data or an empty array if the former doesn't exist
+            let data = JSON.parse(localStorage.getItem("menuItems")) || [];
+
+            // Init calls //
+            handleEvent();
+            populateMenu(data);
+        </script>
+    </body>
+</html>
