@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes"/>
+        <title>TicTacToe</title>
+        <style type="text/css">
+            /* CSS Reset */
+            *, *:before, *:after {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            /* Styles */
+            .container {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .gameContainer {
+                height: 300px;
+                width: 300px;
+                margin-bottom: 20px;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+            }
+            .cell {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid #000;
+            }
+            .cell:hover {
+                background-color: rgba(0, 255, 0, 0.4);
+            }
+            .game {
+                text-align: center;
+            }
+            .gameStatusContainer {
+                display: none;
+            }
+            .gameStartBtnContainer {
+                display: block;
+            }
+            .gameStatus {
+                margin-bottom: 20px;
+                font-size: 20px;
+            }
+            .gameStartBtn, .gameResetBtn {
+                height: 50px;
+                width: 200px;
+                background-color: green;
+                border: 2px solid #000;
+                border-radius: 10px;
+            }
+            .gameResetBtn {
+                background-color: rgba(255, 0, 0, 0.9);
+                margin-bottom: 20px;
+            }
+            .gameStartBtn:focus, .gameResetBtn:focus {
+                outline: none;
+            }
+            .gameTurnConfirm {
+                display: none;
+                font-size: 20px;
+                text-align: center;
+            }
+            .gameTurnConfirm > button{
+                background-color: inherit;
+                border: 1px solid #000;
+                border-radius: 5px;
+                padding: 10px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <main class="container">
+            <section class="gameContainer">
+                <div class="cell cell0"></div>
+                <div class="cell cell1"></div>
+                <div class="cell cell2"></div>
+                <div class="cell cell3"></div>
+                <div class="cell cell4"></div>
+                <div class="cell cell5"></div>
+                <div class="cell cell6"></div>
+                <div class="cell cell7"></div>
+                <div class="cell cell8"></div>
+            </section>
+            <section class="game">
+                <div class="gameStatusContainer">
+                    <p class="gameStatus"><span class="gameStatusTurn">Player 2</span>'s turn.</p>
+                    <button class="gameResetBtn">Reset</button>
+                    <div class="gameTurnConfirm">
+                        <button class="gameTurnSwitch">Confirm Move</button>
+                        <button class="gameTurnChange">Change Move</button>
+                    </div>
+                </div>
+                <div class="gameStartBtnContainer">
+                    <button class="gameStartBtn">Start</button>
+                </div>
+            </section>
+        </main>
+        <!-- JavaScript -->
+        <script type="text/javascript">
+            // Function declarations //
+            // init function
+            function init(){
+                // event listener for starting the game
+                let startBtn = document.querySelector(".gameStartBtn");
+                startBtn.addEventListener("click", (event) => {
+                    resetBoard();
+                    toggleDisplay(event.srcElement);
+                    startGame();
+                });
+
+                // event listener for reset button
+                let resetBtn = document.querySelector(".gameResetBtn");
+                resetBtn.addEventListener("click", (event) => {
+                    // document.querySelector(".gameContainer").removeEventListener("click", initBoard);
+                    // resetBoard();
+                    // toggleDisplay(event.srcElement);
+                    // reloading the page instead of running the above 3 lines of code
+                    location.reload();
+                });
+
+                // event listener for move confirmation dialogue
+                let gameTurnConfirm = document.querySelector(".gameTurnConfirm");
+                gameTurnConfirm.addEventListener("click", (event) => confirmMove(event));
+            }
+
+            // resetting cells for new game
+            function resetBoard(){
+                for(let i = 0; i < 9; i++){
+                    document.querySelector(".cell" + i).innerText = "";
+                }
+                document.querySelector(".gameStatusTurn").innerText = "Player 2";
+            }
+
+            // toggling buttons' and status' display
+            function toggleDisplay(element){
+                // selecting elements
+                let startBtnContainer = document.querySelector(".gameStartBtnContainer");
+                let gameStatusContainer = document.querySelector(".gameStatusContainer");
+                let startBtn = document.querySelector(".gameStartBtn");
+                let resetBtn = document.querySelector(".gameResetBtn");
+
+                if(element === startBtn){
+                    startBtnContainer.style.display = "none";
+                    gameStatusContainer.style.display = "block";
+                }
+                else if(element === resetBtn){
+                    startBtnContainer.style.display = "block";
+                    gameStatusContainer.style.display = "none";
+                }
+            }
+
+            // starting the game
+            function startGame(){
+                checkResult();
+                switchTurn();
+                initBoard();
+            }
+
+            // checking the result
+            function checkResult(){
+                let cells = [...document.querySelectorAll(".cell")];
+                if(cells[0].innerText !== "" && cells[0].innerText === cells[1].innerText && cells[1].innerText === cells[2].innerText){
+                    postWinner(0, 1, 2, cells);
+                }
+                else if(cells[3].innerText !== "" && cells[3].innerText === cells[4].innerText && cells[4].innerText === cells[5].innerText){
+                    postWinner(3, 4, 5, cells);
+                }
+                else if(cells[6].innerText !== "" && cells[6].innerText === cells[7].innerText && cells[7].innerText === cells[8].innerText){
+                    postWinner(6, 7, 8, cells);
+                }
+                else if(cells[0].innerText !== "" && cells[0].innerText === cells[3].innerText && cells[3].innerText === cells[6].innerText){
+                    postWinner(0, 3, 6, cells);
+                }
+                else if(cells[1].innerText !== "" && cells[1].innerText === cells[4].innerText && cells[4].innerText === cells[7].innerText){
+                    postWinner(1, 4, 7, cells);
+                }
+                else if(cells[2].innerText !== "" && cells[2].innerText === cells[5].innerText && cells[5].innerText === cells[8].innerText){
+                    postWinner(2, 5, 8, cells);
+                }
+                else if(cells[0].innerText !== "" && cells[0].innerText === cells[4].innerText && cells[4].innerText === cells[8].innerText){
+                    postWinner(0, 4, 8, cells);
+                }
+                else if(cells[2].innerText !== "" && cells[2].innerText === cells[4].innerText && cells[4].innerText === cells[6].innerText){
+                    postWinner(2, 4, 6, cells);
+                }
+                else {
+                    let chancesLeft = false;
+                    for(let i = 0; i < 9; i++){
+                        if(cells[i].innerText !== "X" && cells[i].innerText !== "O" && cells[i].innerText === "") {
+                            chancesLeft = true;
+                            break;
+                        }
+                    }
+                    if(chancesLeft === false){
+                        postWinner(9, 9, 9, cells);
+                    }
+                }
+            }
+
+            // posting winner
+            function postWinner(cell1, cell2, cell3, cellArr){
+                if(cell1 === 9) {
+                    alert("No Winner");
+                    location.reload();
+                }
+                else{
+                    cellArr[cell1].style.backgroundColor = "green";
+                    cellArr[cell2].style.backgroundColor = "green";
+                    cellArr[cell3].style.backgroundColor = "green";
+
+                    setTimeout(() => {
+                        if(cellArr[cell1].innerText === "X"){
+                        alert("Player 1 won!!");
+                        location.reload();
+                        }
+                        else if(cellArr[cell2].innerText === "O"){
+                            alert("Player 2 won!!");
+                            location.reload();
+                        }
+                    }, 1000);
+                }
+            }
+
+            // switching player's turns
+            function switchTurn(){
+                // selecting elements
+                let turnStatus = document.querySelector(".gameStatusTurn");
+                if(turnStatus.innerText === "Player 2") turnStatus.innerText = "Player 1";
+                else if(turnStatus.innerText === "Player 1") turnStatus.innerText = "Player 2";
+            }
+
+            // initialising board to receive clicks
+            function initBoard(){
+                let board = document.querySelector(".gameContainer");
+                board.addEventListener("click", (event) => {
+                    initCellInput(event);
+                }, {
+                    once: true
+                });
+            }
+
+            // initialising the cell to receive input
+            function initCellInput(event){
+                let turnStatus = document.querySelector(".gameStatusTurn");
+                targetCell = event.path[0];
+                if(turnStatus.innerText === "Player 1") targetCell.innerText = "X";
+                else if(turnStatus.innerText === "Player 2") targetCell.innerText = "O";
+
+                let confirmBox = document.querySelector(".gameTurnConfirm");
+                confirmBox.style.display = "block";
+            }
+
+            // confirming move
+            // true: Confirming move
+            // false: Change move
+            function confirmMove(event){
+                let confirmBox = document.querySelector(".gameTurnConfirm");
+                if(event.path[0] === document.querySelector(".gameTurnSwitch"))
+                {
+                    // confirmed move
+                    confirmBox.style.display = "none";
+                    startGame();
+                }
+                else if(event.path[0] === document.querySelector(".gameTurnChange"))
+                {
+                    // changing move
+                    confirmBox.style.display = "none";
+                    targetCell.innerText = "";
+                    initBoard();
+                }
+            }
+
+            // global variables //
+            let targetCell;
+
+            // executing //
+            init();
+
+        </script>
+    </body>
+</html>
