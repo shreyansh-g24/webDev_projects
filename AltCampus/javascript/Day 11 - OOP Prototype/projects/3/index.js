@@ -123,7 +123,7 @@ console.log("\n");
                         USING ES6 CLASSES
 ****************************************************************/
 
-/*** CHALLENGE 1 of 3 ***/
+/*** CHALLENGE 1 of 2 ***/
 
 class PersonClass {
 	constructor(name) {
@@ -141,15 +141,22 @@ george.greet(); // -> Logs 'hello'
 console.log("\n");
 
 
-/*** CHALLENGE 2 of 3 ***/
+/*** CHALLENGE 2 of 2 ***/
 
-// add code here
+class DeveloperClass extends PersonClass{
+  constructor(name){
+    super(name);
+  }
+  introduce(){
+    console.log("Hello World, my name is ", this.name);
+  }
+}
 
 
 // /********* Uncomment these lines to test your work! *********/
-// var thai = new DeveloperClass('Thai', 32);
-// console.log(thai.name); // -> Logs 'Thai'
-// thai.introduce(); //-> Logs 'Hello World, my name is Thai'
+var thai = new DeveloperClass('Thai', 32);
+console.log(thai.name); // -> Logs 'Thai'
+thai.introduce(); //-> Logs 'Hello World, my name is Thai'
 console.log("\n");
 
 
@@ -171,17 +178,21 @@ function userFactory(name, score) {
   return user;
 }
 
-var adminFunctionStore /* Put code here */ ;
+// redundant link as the userFunctionStore is already being linked to adminFactory when we call the userFactory function.
+var adminFunctionStore = userFunctionStore ;
 
 function adminFactory(name, score) {
-  // Put code here
+  let adminObj = userFactory(name, score);
+  adminObj.type = "Admin";
+  Object.setPrototypeOf(adminObj, adminFunctionStore);
+  return adminObj;
 }
 
-/* Put code here for a method called sharePublicMessage*/
+adminFunctionStore.sharePublicMessage = function(){console.log("Welcome!")};
 
 var adminFromFactory = adminFactory("Eva", 5);
 
 // /********* Uncomment these lines to test your work! *********/
-// adminFromFactory.sayType() // -> Logs "I am a Admin"
-// adminFromFactory.sharePublicMessage() // -> Logs "Welcome users!"
+adminFromFactory.sayType() // -> Logs "I am a Admin"
+adminFromFactory.sharePublicMessage() // -> Logs "Welcome users!"
 console.log("\n");
