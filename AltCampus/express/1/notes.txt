@@ -1,0 +1,95 @@
+===== middlewares =====
+
+--> a software that acts as a bridge between an operating system or database and applications, especially on a network.
+--> add the middlewares before handling any routes(GET, POST etc).
+--> ".use" is a predefined method to create a middleware. Methods like ".get, .put" are used to handle routes, theyre also a sort of middleware. The first arg all take is a path, for example if we pass "/users", it will only execute the middleware if the request is made on /users, if omitted, as done below, it will respond to all requests made.
+--> ".get, .put, .post" etc need the first arg ie. the path compulsorily as theyre handling the routes, so they need that argument unlike ".use" which will listen to all requests in absense of a specified path argument.
+--> any middleware used in express can take this form:
+
+    let app = require("express")();
+    app.use((req, res, next) => {
+        console.log("req.url");
+    });
+
+        -in express if we use any of the res methods, res.end is called automatically
+        -hence if we for example, call "res.send("")" in a middleware and call next() too, and in the subsequent middlewares we call res.send() again, it will throw an error- "response has already been sent"
+        -next() will call the next middleware in line and so on until it reaches a middleware that ends the response
+        -in the logger middlware code above, we have neither called any of the res methods nor called next(), so the response will hang there.
+
+1. logger: to log the data for each request like the middleware above thats console-logging the request url.
+2. JSON parser: if theres any json data, parse it, else pass it on.
+
+3. res.sendFile(path) => to send the file as the response. It renders the file automatically depending upon the extension of the file. No need to set the content-type.
+
+===== INBUILT MIDDLEWARES =====
+--> On inbuilt middlewares, we dont have to pass req res and next. They're automatically receiving these arguments and calling the next middleware.
+
+4. express.json =>
+
+    app.use(express.json());
+
+    => if there is any json data coming from the request, it parses the data.
+
+5. app.use(express.urlencoded({extended:false}))
+
+    => it receives and parses the form data being received if any.
+    => the extended option clarifies if the data from nested forms, if any, is to be included. Set to true if it is to be included.
+
+===== after parsing the 4 and 5th middlewares pass the parsed data to req.body and it can be accessed in the subsequent middlewares in req.body.
+
+6. app.use(express.static(path.join(__dirname, "public")));
+
+    => express.static defined the path for the static assets of the project, hence all static assets like css, images, js etc are kept in a public directory in the root directory of the app. The first argument of this method being the path to public dir. Ofcourse to use, path.join, import path module which is a core node module and hence need not be downloaded using npm or added to package.json dependencies.
+    => Whenever any request is made for any of the static assets, the req will pass through the .static middleware, hence in the html file we only need to specify the path to these assets with "public" directory as the root directory.
+
+7. app.set("views", path.join(__dirname, "views"));
+-->app.set("view engine", "ejs");
+
+    => app.set is used to specify the view emgine. The first argument defines "views" (predifined keyword), and the second argument defines the path to the view directory for all our templates. The directory name can be changed I guess.
+
+    => The second statment sets the view engine (predefined keyword) to ejs. ejs is not a core node module so needs installation using npm.
+
+8. Cookie Parser
+
+    let cookieParser = require("cookie-parser");
+    app.use(cookieParser());
+
+    => After installing the npm package cookie-parser, first we have to acquire the middleware cookie-parser to use it in app.use. It saves cookies in the browser.
+    => There are other packages for parsing cookies too, but cookie-parser is the one usually used in express.
+    => To sent a cookie to the browser, create a middleware and add the command as follows, after adding the code above:
+    => (Here it won't call res.end();, it'll just set the cookie for the response)
+
+    app.use("/", (req, res, next) => {
+        res.cookie("key", "value");
+    });
+
+    => to see those cookies in browser, check:
+        inspect-->"more>>"-->application-->cookies
+
+=============================== ROUTING
+=> To handle all the routing, we create a new directory "routes" in the root directory. For example to handle all the routes on the route "/users", we'll have another file called "users.js" in "routes" dir for handling the routes on the "/users" path. In "index.js", we'll add:
+
+    let userRouter = require("/routes/users.js");
+    let blogRouter = require("/routes/blogs.js");
+    app.use("/", <handle routes here>);
+    app.use("/users", userRouter);
+    app.use("/blogs", blogRouter);
+
+    => Any request on "/users" will redirect to the "users.js" file and so on for "blog.js" etc.
+    => In the first statement with "/" as the path, it's gonna handle all the routes on "/", whether it's "/users", "/blogs" or "/".
+    => However with "app.get", "app.post" etc, they'll only handle the routes only on the path defined in their first argument.
+
+    => In the "users.js" file:
+
+    let express = require("express");
+    let router = express.Router();  // using the router module of express
+    router.get("/new", (req, res) => {});
+    module.exports = router;  // exporting the routes handling in "/users"
+
+    => In "users.js", we'll handle the routes on the path "/users", and other paths like "/users/new" etc, in index.js, since the path is "/users/...", it'll redirect to the "users.js" file, and there the paths for subsequent pages are with "/users/" path as the root path. After handling all the routes, the router var is exported from the users.js file and is imported in index.js file in the variable userRouter.
+    => In the current index.js file, we did:
+
+    let app = express();
+
+    => so it already had all the routing methods, which are imported in users.js in the variable router using the command "let router = express.Router();"
+

@@ -159,7 +159,7 @@ Write a JavaScript function to *uncamelize* a string.
 */
 function uncamelize(str, connector){
     // splitting the string into an array of characters, if the value is upper case, appending the connector and converting to lower case, joining the characters back into a string.
-    return str.split("").map((val, index) => (val === val.toUpperCase() && index !== 0) ? (connector + val.toLowerCase()) : val).join("")
+    return str.split("").map((val, index) => (val === val.toUpperCase() && index !== 0) ? (connector + val.toLowerCase()) : val).join("");
 }
 console.log("\nUncamelizing the string: ", uncamelize("JavaScriptExercises", "_"));
 /*

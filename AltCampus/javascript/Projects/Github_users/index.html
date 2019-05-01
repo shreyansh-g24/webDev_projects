@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes"/>
+        <title>Search github Users</title>
+        <style type="text/css">
+            /* Styles */
+        </style>
+    </head>
+    <body>
+        <main>
+            <label for="username"></label>
+            <input id="username" type="text" name="user"/>
+            <button class="submitBtn">Search</button>
+
+            <div>
+                <img class="userImage" src="#"/>
+                <div class="userName"></div>
+            </div>
+        </main>
+
+        <script type="text/javascript">
+            // functions //
+            function init(){
+                // adding event listener to search button
+                let btn = document.querySelector(".submitBtn");
+                btn.onclick = function(){
+                    searchUser();
+                };
+            }
+
+            // searching for the user
+            function searchUser(){
+                // extracting the username
+                let inputName = document.querySelector("#username");
+                let user = inputName.value;
+                inputName.value = "";
+
+                // initiate xhr
+                let xhr = new XMLHttpRequest();
+                xhr.onload = function(){
+                    displayUser(JSON.parse(xhr.response));
+                };
+                xhr.onerror = function(){
+                    console.log("Failed to receive the data");
+                };
+                let url = "https://api.github.com/users/" + user;
+                xhr.open("GET", url);
+                xhr.send();
+            }
+
+            // displaying the user information
+            function displayUser(userInfo){
+                // selecting the elements
+                let userImage = document.querySelector(".userImage");
+                let userName = document.querySelector(".userName");
+
+                // displaying the information
+                userImage.src = userInfo.avatar_url;
+                userName.innerText = userInfo.login;
+            }
+
+            // executing the code
+            init();
+        </script>
+    </body>
+</html>
