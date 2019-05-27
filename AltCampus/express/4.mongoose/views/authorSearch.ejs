@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>Author Search</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=yes, maximum-scale=2.0"/>
+        <link rel="stylesheet" href="/stylesheets/style.css"/>
+    </head>
+    <body>
+        <h1 class="bookTitle"><%= authorResult.name %></h1>
+        <p class="bookDescription">Email: <%= authorResult.email %></p>
+        <p class="bookDescription">Age: <%= authorResult.age %></p>
+        <p class="bookDescription">Books: %></p>
+        <% authorResult.books.forEach(book => { %>
+            <p class="bookDescription"><%= book.title %></p>
+        <% }); %>
+        <a href="/authors/<%= authorResult._id %>/edit"><button>Edit</button></a>
+        <a href="/authors/<%= authorResult._id %>/delete"><button>Delete</button></a>
+    </body>
+</html>

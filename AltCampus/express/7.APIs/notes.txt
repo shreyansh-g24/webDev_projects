@@ -1,0 +1,17 @@
+===== APIs =====
+
+=> Since there's a dedicated route to handle all the api requests, conventionally: /api/v1/
+  => v1 being the version number.
+  => We handle the api routes in a separate directory having the routes directory structure to look like:
+
+  => routes/
+    => Files to handle different routes like users.js etc.
+    => api/
+      => v1/  <= the directory to handle the api request to version 1
+        => users.js
+        => blog.js
+        => The files to handle the api requests to the designated routes like /api/v1/users.js and /api/v1/blog.js etc.
+
+        => Ofcourse, we can either route the /api/v1 routes in the app.js file itself or we can only handle /api in app.js and /v1 etc can be handled/routed to the requried files in the api/ directory in another file api.js  and so on.
+        => Following a similar directory structure for controllers/ dir.
+        

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>User Search</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, maximum-scale=2.0"/>
+    </head>
+    <body>
+        <main>
+            <h1><%= user.username %></h1>
+            <p><%= user.email %></p>
+            <p><%= password %></p>
+            <a href="/users/<%= user._id %>/delete"><button>Delete</button></a>
+        </main>
+    </body>
+</html>

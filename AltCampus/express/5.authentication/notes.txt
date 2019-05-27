@@ -1,0 +1,162 @@
+===== AUTHENTICATION =====
+
+=> Set up the user router and userForm.
+
+===== PRE SAVE HOOK
+=> Pre-save-hook are run before saving the document to the database every time.
+=> In the user model file, we have defined a pre-save-hook. We have used a normal function as we have to use "this" inside it.
+=> "this" inside pre-save-hook, points to the document being saved.
+=> Also it doesnt accept any err so we gotta be careful while running it.
+=> Pre-save-hook is sort of a middleware, so the program will hang up unless we call next() in pre-save-hook.
+=> Consequently we can use pre-save-hook to hash the password and save the hashed password.
+
+=> We can also call bcrypt in users.js router file, and hash the password there, extract it from req.body, hash the password and return it to User.create function.
+=> But pre-hooks are made specifically for performing operations before saving the document, so better to hash the password in the model file in pre-save-hook.
+
+===== HASHING THE PASSWORD
+=> TO hash the password we'll have to use an external module called "bcrypt".
+=> Install bcrypt
+=> We can use bcrypt synchronously or asychronously => In the latter it might to save the document even before we've hashed the password.
+=> So while using async method, gotta make sure, that next() is called inside the pre-save-hook only after password has been hashed.
+=> In async version we can either use promises via then or use callbacks.
+=> In sync version, there's no need for a callback or promises as it's synchronous.
+=> Usage (synchronous version):
+
+        const bcrypt = require('bcrypt');
+        const saltRounds = 10;
+        const myPlaintextPassword = 's0/\/\P4$$w0rD';
+        const someOtherPlaintextPassword = 'not_bacon';
+
+    => Technique 1 (generate a salt and hash on separate function calls):
+
+        var salt = bcrypt.genSaltSync(saltRounds);
+        var hash = bcrypt.hashSync(myPlaintextPassword, salt);
+        // Store hash in your password DB.
+
+    => Technique 2 (auto-gen a salt and hash):
+
+        var hash = bcrypt.hashSync(myPlaintextPassword, saltRounds);
+        // Store hash in your password DB.
+
+        // checking the password.
+        // Load hash from your password DB.
+        bcrypt.compareSync(myPlaintextPassword, hash); // true
+        bcrypt.compareSync(someOtherPlaintextPassword, hash); // false
+
+===== LOGIN in users.js
+    => Route to handle: GET req on /login
+        => Render login-form
+    => Handle post req on /login
+    => Login form will send email and password, check if any of the fields is empty
+    => If it is, redirect it back to login page
+
+        router.post("/login", (req, res, next) => {
+            // saving email and password from req.body object in variables with same names
+            let {email, password} = req.body;
+            // checking if the email or password is empty
+            // if yes, it'll redirect to the login page, return keyword to exit out of the function and not execute the subsequent block of code
+            if(!email || !password) return res.redirect("/users/login");
+            // finding the user with email as match
+            User.findOne({email: email}, (err, user) => {
+                // handling error : Posting statusCode as well this time in response
+                if(err) return res.status(500).next(err);
+                // if user is empty/null ie. email match not found
+                // redirect takes status code as the second argument
+                if(!user) return res.redirect("/users/login", 400);
+                // verifying password
+                // calling the method and passing it the password received on the login page.
+                // it will return either true or false. Checking for failed validation
+                if(!user.validatePassword(password)) return res.redirect("/users/login", 400);
+                // displaying the user information if validation is successful
+                res.redirect("/users/userSearch", 200);
+            });
+        });
+
+            => 500 status code: server side errors
+            => 400 status code: client side errors, like invalid email sent.
+
+    => defining a method on the user schema in User.js model file
+    => schemaName.methods.functionName
+
+        userSchema.methods.validatePassword = function(password){
+            // since we are inside userSchema, this.password will give us the access to the hashed password.
+            // it will return either true or false
+            return bcrypt.compareSync(password, this.password);
+        };
+
+===== AUTHENTICATING LOG IN SESSION
+=> To authenticate the log in session of a user, we need a way to persist the information of the user.
+=> Two ways:
+    => session based authenticaiton
+    => token based authentication
+
+    => SESSION BASED AUTHENTICATION
+        => Whenever a user logs in, we take a unique information for the user, like his email or _id, and we store it into our session.
+        => Session is stored on server side, cookies are stored on the browser.
+        => Consequently we have a session for a specific user on the server side that tells that the user is logged in.
+        => Hence we need a way, so that client's browser could know about the logged in session, enter cookies.
+
+        => express.session package required. It's a middleware, that'll be added in the server.
+
+        => Flow:
+            => User logs in, server authenticates the user, it creates a session and sends a response back to the browser.
+            => Every session has a unique id. With the response, server sends back a cookie with the id of the session.
+            => Now every time a request is sent to the server, the cookie will also be sent with the request from the browser.
+            => Similarly, with every response the server also sends back a cookie with the session id.
+            => Whether to check if the session is on or not, we only have to check req.session.userid whether it exists or not.
+            => Whenever a session is created, it's stored in RAM on the server side, and it's killed when the server restarts or is killed. That's why we are gonna use mongo.store to save the session in the mongodb database so that it won't be killed.
+
+    ===== SESSION: // recheck the package name
+        => npm install express-session --save
+        => let session = require("express-session");
+
+        => Add it as a middleware using app.use(); Also make sure place this middleware, after using cookieParser.
+
+        app.use(session({
+            secret: "string of choice here to hash the cookie",
+            resave: false,
+            saveUninitialized: true,
+        }));
+
+        => secret is used to hash our cookies, receives a string you want to hash the cookies with.
+        => resave false means we dont want to resave the session every time, only resave when there's a change or something.
+        => saveUninitialized set to true means it will create a session anyhow, if the user is logged in it will contain the user info otherwise it will be a blank session.
+        => Without this code req.session might through an error or something since there's no session then.
+        => connect.sid is the default cookie of the session. Even though we dont login, this cookie will still be present with the session id of the blank session since we have saveUninitialized set to true.
+
+        => Once we check there's no error, email or password isn't blank, email matches with one from the database and password is also valid:
+            => We save the userId in the session.
+
+            // user.id === user._id => mongoose normalises it.
+            req.session.userId = user.id;
+            res.redirect("/users/userSearch", 200);
+
+        => We can add console.log(req.session) on the target page's route handler to see the session object.
+        => Session are accessed from the request object, hence req.session is being updated and nothing as such res.session.
+        => With this we can start the server, login and send a get request on userSearch, to view the session object in console but once we restart the server and send another get request on userSearch, we'll see that the session still exists since saveUninitialized is true, but there'll be no userId there unlike before.
+
+    ===== USING MONGO STORE // recheck the package name
+        => npm install connect-mongo --save
+        => let MongoStore = require("connect-mongo")(session);
+
+        => In app.use(session) as the last key value pair:
+
+            store: new MongoStore({
+                mongooseConnection = mongoose.connection,
+            }),
+
+        => Ofcource the sessions collection can be seen within the mongo database in use.
+
+        ===== RESTRICTING ROUTES IF NOT LOGGED IN
+        => Before passing the route, if the user id is available in the session object, we'll pass the route else we won't.
+
+        // Checking if both the session and the userId exists.
+        if(req.session && req.session.userId){
+            /* Code to be executed */
+            res.render("....");
+        }
+        else {
+            res.send("Request Denied.");
+        }
+
+====================================

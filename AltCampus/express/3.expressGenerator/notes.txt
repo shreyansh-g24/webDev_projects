@@ -1,0 +1,34 @@
+EXPRESS GENERATOR:
+
+===== global installation
+npm install -g express-generator
+
+===== running the express generator
+=> switch to the target directory and run:
+    
+    express projectName
+
+=> it'll initialise the target directory with the necessary directory structure: like
+    bin, views, public, routes, node_modules etc. with the init/entry file being app.js
+
+=> might need to run "npm install" to install the remaining dependencies. Then we can run npm start to start the server.
+
+=> We can uninstall jade and install ejs engine using the following commands but it wont update the .jade files in the view directory.
+    npm uninstall jade
+    npm install ejs --save 
+
+=> By default jade view engine is the one express generator is initialised with. But we can change it to ejs using the following command
+
+    express --view=ejs projectName
+
+    => This command is to be run at the time of initialising the directory with express generator instead of the original "express projectName" command.
+
+===== ROUTES
+=> With app.js as our entry file, it routes the requests to users.js if the request comes on "/users/" and index.js if the request comes on "/".
+=> Since the path "/users" has already been matched in app.js, while matching routes in users.js, we dont prepend "/users" to the path. 
+Hence a path "/users/new" in the users.js is only referred to as "/new". "/users" need not be prepended.
+=> Also, we use "app.use" only in the entry file. In routes files, we handle exact route matches, with GET, POST etc request matches.
+=> Everything on "/" routes is to be handled in index.js. Since we already have a separate handler for everything request on "/users/",
+for "/users/new" we'll handle the route in "users.js".
+
+===== 

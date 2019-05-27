@@ -1,0 +1,116 @@
+===== OAuth Strategy =====
+    => Basically OAuth strategy involves logging users in using other websites like gmail, github or facebook id. So they'll authenticate the users for us. They generate a clientId and client secret for our Id so whenever our client/user tries to log in on our website using say e.g. github id, github would know on whose behalf the user if making that request: our behalf.
+
+    =====
+    STEPS:
+        1. Create an app: fetch client id and secret.
+        2. Go ahead and tell the passport that we want it implemented using sessions.
+        3. Define/Use passport as a middleware in app.js
+        4. Create two routes:
+            first to send a callback to the server on /auth/github
+                It will search for the github stategy for authentication, and come to passport.js for the same.
+            second to handle callback: /auth/github/callback
+                After successful or failed authentication, it will comeback to this callback url and it will send the success or failure response as the case may be.
+    =====
+
+    => To use this, we need to make an Oauth app on the respective site and decide upon a url where the website will send us the requests whenever a user logs in: conventionally the url in use is:
+
+        localhost:port/auth/github/callback
+
+===== Passport
+    => We can use passport with tokens as well as sessions. If dont wanna use the default setting ie.- sessions, we can turn it off using {session: false} in the required code block (middleware). By default it uses session to store user info, using serializer to automatically pass the userId of the user in question into the session.
+
+    => Install passport using
+
+        npm install passport --save
+
+    => For logging in using OAuth stategy, we need to install the corresponding strategies of the website to be logged in using. For example install passport-github if logging in using github. Ofcourse the basic passport package has to be install anyway.
+
+        npm install passport-github --save
+
+    => Read more on it on ("www.passportjs.org/packages/passport-github")
+
+===== The Making
+    ===== In app.js
+        let passport = require("passport");
+
+        // requiring passport for authentication
+        require("./modules/passport.js");
+
+        // initialising the passport.
+        app.use(passport.initialise());
+
+        // can create a separate route to handle authentication but here we're gonna handle it within index.js.
+
+    ===== In index.js
+        let passport = require("passport");
+
+        router.get("/auth/github", passport.authenticate("github"));
+
+        // Inside passport.authenticate we'll pass the strategy name i.e. the way we are trying to authenticate with.
+        router.get("/auth/github/callback",
+            passport.authenticate("github", {failureRedirect: "/login"}), function(req, res){
+                // redirection in case of successful authentication.
+                res.redirect("/users");
+            });
+
+    ===== Make a new directory called "modules" that will contain the strategy for authentication.
+        => In modules, in a file called passport.js we copy paste the code off the documentation on passportjs.
+        => Adding code:
+
+            let passport = require("passport");
+
+        => In the code we pasted, the function handles the info received from the github, it receives accessToken (created for granting authenticated request), refreshToken (not used everywhere, usually just used for when the accessToken expires, to create a new accessToken), profile (the user's profile), cb (callback function)
+        => From the information received, we can save some of the profile information that we deem fit like username, email etc to send newsletter and whatnot, the info that we think will stay constant and we won't need to fetch it over and over again.
+        => For example if we have a User model with us, the function would look something like:
+
+            => In the user model, suppose we are keeping the profile pic url from github, a unique email etc.
+            => Ofcourse the path for the info can be seen by console logging the profile info in the function as done below
+
+            // we have to return something from this function in order for the callback route to work in users.js
+            function(accessToken, refreshToken, profile, cb){
+                console.log(profile);
+
+                User.findOne({email: profile.emails[0].value}, (err, user) => {
+                    if(err) return cb(err);
+
+                    // if the user is already present, means he has sometime previously logged in using github, we just return the user.
+                    if(user) return cb(null, user);
+                    else if(!user) {
+                        // creating the user
+                        let user = {
+                            name: profile.displayName,
+                            email: profile.emails[0].value,
+                            username: profile.username,
+                        };
+                        User.create(user, function(){
+                            cb(null, user);
+                        });
+                    }
+                });
+            }
+
+            => The cb option, is only used to return the callback, receiving the first argument as the error, which if not null, will redirect us to the failure route. The second argument being the user if present, the error is null and we are redirected to the success route.
+
+    ===== In app.js
+        => Install and initialise sessions in app.js after cookie parser to do it with cookies.
+
+    ===== In passport.js
+        => While using passport with session, we need the following two pieces of codes. The names are predefined, don't need to call these functions anywhere, get called automatically.
+
+        => This creates a session with the user id. Earlier being done manually with req.session.userid = user.id. Returns callback with no error the user.id
+
+        passport.serializeUser((user, cb) => {
+            cb(null, user.id);
+        });
+
+        => Every time a request is returned from the browser, this checks if the userid exists and finds the user in the database, and returns the callback with null as the error and the entire user object so we can find with user sent the request.
+
+        passport.deserializeUser((id, cb) => {
+            User.findbyId(id, (err, user) => {
+                cb(null, user);
+            });
+        });
+
+        => The resultant session is available in all routes with a passport object containing the userId.
+        => To set expiration date on cookies, we can add the relevant option with time in milliseconds (consult express-session page) to set the expiration time. Yes, the session middleware is still required even if we're using the passport functions above.

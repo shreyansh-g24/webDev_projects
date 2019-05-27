@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>Book Search</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=yes, maximum-scale=2.0"/>
+        <link rel="stylesheet" href="/stylesheets/style.css"/>
+    </head>
+    <body>
+        <h1 class="bookTitle"><%= bookResult.title %></h1>
+        <p class="bookDescription"><%= bookResult.description %></p>
+        <p class="bookDescription">Pages: <%= bookResult.pages %></p>
+        <p class="bookDescription">Tags: <%= bookResult.tags %></p>
+        <p class="bookDescription">Published? <%= bookResult.published ? "Yes" : "No" %></p>
+        <p class="bookDescription">Author: <%= bookResult.author.name %></p>
+        <a href="/books/<%= bookResult._id %>/edit"><button>Edit</button></a>
+        <a href="/books/<%= bookResult._id %>/delete"><button>Delete</button></a>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>Add New Book</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, maximum-scale=2.0"/>
+    </head>
+    <body>
+        <form method="POST" action="<%= bookInfo ? '/books/' + bookInfo._id + '/edited' : '/books/new' %>">
+            <input value="<%= bookInfo ? bookInfo.title : '' %>" type="text" name="title" placeholder="Name"/>
+            <textarea name="description" placeholder="Description"><%= bookInfo ? bookInfo.description : '' %></textarea>
+            <input value="<%= bookInfo ? bookInfo.tags.join(' ') : '' %>" type="text" name="tags" placeholder="tags separated by spaces"/>
+            <input value="<%= bookInfo ? bookInfo.pages : '' %>" type="number" name="pages" placeholder="0"/>
+            <!-- Author list -->
+            <select name="author">
+                <% authors.forEach(author => { %>
+                    <option value="<%= author._id %>"><%= author.name %></option>
+                <% }); %>
+            </select>
+            <button type="submit">Add Book</button>
+        </form>
+    </body>
+</html>

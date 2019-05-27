@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>Add New Author</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, maximum-scale=2.0"/>
+    </head>
+    <body>
+        <form method="POST" action="<%= authorInfo ? '/authors/' + authorInfo._id + '/edited' : '/authors/new' %>">
+            <input value="<%= authorInfo ? authorInfo.name : '' %>" type="text" name="name" placeholder="Name"/>
+            <input value="<%= authorInfo ? authorInfo.email : '' %>" type="email" name="email" placeholder="Email"/>
+            <input value="<%= authorInfo ? authorInfo.age : '' %>" type="number" name="age" placeholder="0"/>
+            <button type="submit">Add Author</button>
+        </form>
+    </body>
+</html>

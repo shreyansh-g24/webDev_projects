@@ -1,0 +1,211 @@
+===== MONGOOSE =====
+
+===== defining schema for database document. For example defining one for books:
+    var Schema = mongoose.Schema;
+    var bookSchema = new Schema({
+        title: {
+            type: String,
+            required: true,
+            maxlength: 15,
+            minlength: 5,
+        },
+        description: String,
+        pages: {
+            type: Number,
+            default: 0,
+        },
+        tags: [String],                => tags will be an array of string
+        created: {
+            type: Date,
+            default: new Date(),
+        },
+        published: {
+            type: Boolean,
+            default: false,
+        },
+    }, {timestamps: true});
+
+    => The timestamps option in the end set to true, rids us of the need to include the created property. Timestamp automatically adds two fields- create_at and updated_at. All the document added in with this schema will have these fields by default
+    => We have a book schema, now defining a mongoose model for books
+    => The name of the model should be capitalised and singular. A model is like an entire collection. All the interaction from the mongoDB database will be through the model. For example:
+    Book.find() will return all the documents from the database.
+
+    var Book = mongoose.model("Book", bookSchema);  => first arg being the name of the model and second one being the schema on which the model is to be made.
+
+    => In the end we'll export the model from the document.
+
+    module.exports = Book;
+
+    => or export in a single line without defining a variable
+
+    module.exports = mongoose.model("Book", bookSchema);
+
+    => Whenever we create a schema or a model, we import in app.js just so our app.js would know about all the models and schemas.
+    => In app.js
+
+        var bookModel = require("./models/book.js");
+
+        => relative path to the book.js file, appending the extension is not compulsory, it automatically looks for a .js file.
+        => If we omit the name of the file, "book" || "book.js" => By default it looks for index.js
+
+===== CREATING A CRUD APP FOR STORING BOOK INFO =====
+
+===== DB METHODS
+    => By default the methods in mongoose are asynchronous, hence they take a second arg, ie. a callback function
+    => Methods examples:
+        => var Book = require(Path to the js file);  // requiring the model
+        => Book.create(req.body, (err, newBook) => {});
+            // equivalent to the mongodb method of db.collectionName.insert({});
+            // req.body being the object with the book info acquired from the form. The callback function receives either an error or a new book created
+        => res.redirect("/books/new");
+            // After all the functions/processes, res.redirect has been called to redirect us back to the form.
+    => FLOW:
+        => First we'll do a get request on books/new that'll return a form to collect book info
+        => Then there will be a post req on the server to submit the form data
+        => We have express.json() and express.urlencoded(), the latter being specifically to store the form data.
+        => There will be a handler to handle get requests on /books => So that after creating a new Book it will list all the created books stored in the database.
+    => ROUTES REQURIED:
+        => One route for creating a form => /books/new
+        => Route to handle the post request for information received from the form and save the info in the database
+        => a route, get requests on /books that will return all the books since created.
+
+===== LIVE CODING FLOW:
+    => initialise the dir with express => express --view=ejs projectName, defining the view engine as ejs, can also specify if you wanna use sass.
+    => run => npm install => to install all the packages required.
+    => since we'll be creating books, we'll switch the default userRouter to bookRouter in the app.js, in routes dir etc.
+    => Install mongoose using => npm install mongoose --save
+    => require mongoose in app.js => var mongoose = require("mongoose");
+    => Run "mongo" in terminal to check if the local mongo server is running, if not start the mongodb service
+    => mongoose.connect("mongodb://localhost/databaseName", {useNewUrlParser: true}, (err) => {
+        err ? console.log("mongoDb not connected to mongoose") : console.log("Mongodb connected to mongoose");
+    });
+        => add this code in the app.js. The target database need not exist beforehand in mongodb.
+        => The second argument above set to true, to fix some internal issue in connecting mongodb and mongoose.
+    => In book.js, we'll require mongoose first, then get schema from mongoose with => Schema = mongoose.Schema; => Then define the schema as done above with all the options you deem fit.
+    => We'll require the book model in app.js with the command => require("./models/Books"); => Not stored in any variable, see below for more details on this.
+
+    => In books.js
+        => require express and run express.Router() and store them in express and router variables respectively.
+        => Handle get request on "/new" and render the bookForm.ejs on the browser.
+        => The form will receive: the title, description (textarea), pages, tags (will return the tags in a string, convert to an array), an input tag with type submit (needed in the end of the form to send the form data on the url specified in form's action attribute)
+        => In books.js handle the post request on /books (simply "/" in books.js). Use => Book.create() => To create a document and pass it the form info.
+        => Also use => res.redirect => to redirect the page to "/" in books.js after saving the form info. redirect function takes the absolute path, so if you want to redirect to /books, you'll have to explicitly mention it.
+
+        => NOTES:
+            => All error handler middlewares take four args as opposed to the normal 3 args, err, req, res, next => In any middleware if we call the next arg and pass and err to it => if(err) return next(err); => it'll skip the next middleware to the error handling middleware.
+            => Post request handler looks like:
+
+            router.post("/", (req, res, next) => {
+                tags = req.body.tags;
+                tags = tags.split(" ");
+                req.body.tags = tags;  // updating the tags before creating a new Book.
+                Book.create(req.body, (err, book) => {
+                    console.log(err, book);
+                    if(err) return next(err);
+                    res.redirect("/");
+                    // redirection above works only if theres no error.
+                });
+            })
+
+            => Get request handler looks like:
+            => The blank object passed at the first argument is to receive the list of all the books, to filter out any book,= and receive that, we can add id etc in the blank object.
+            => If the object is to be kept empty to receive the entire list of books, we can skip the first argument instead of mentioning a blank {};
+
+            router.get("/", function(req, res, next){
+                Book.find({}, (err, books) => {
+                    console.log(err, books);
+                    if(err) return next(err);
+                    res.render("book", {books: books});  // rendering the book.ejs page with list of all books. The variable passed in res.render as a key-value pair is available to use in the template.
+                    // to use this info in book.ejs => <% variable name %>
+                });
+            });
+
+            => book.ejs accessing the list of books
+                => <% books.forEach(book => { %>
+                    <h5><%= book.title %></h5>
+                    <h5><%= book.description %></h5>
+                <% }) %>
+
+        => Now we need to save the acquired bookinfo in to the database using a model.
+        => In books.js, we'll require mongoose and the book model
+
+            var mongoose.require("mongoose");
+            var Book = mongoose.model("Book");
+                => To use the above method however, we need to add <require("./models/books");> in app.js, no need to store in any variable, just require the .js file.
+
+            or
+
+            var Book = require("../models/Book");
+                => Double dot to move out of the routes dir first.
+
+        => Handle a get request on "/" route, and return all the books stored in the database, they can be acquired using => Book.find();
+
+===== NOTES:
+    => The name for the database is taken from app.js from the code snippet connecting mongoose to mongoDB.
+    => The name for the collection is taken from the models, in this case book's model, from when we create a new book model:
+
+        var BookModel = mongoose.model("Book", bookSchema);
+
+    => It converts the name to lower case and pluralises it automatically.
+
+===== UPTIL NOW:
+    => we are listing the books upon a get request on /books
+    => we are receiving a new book upon a post request on /books/new
+    => we are displaying the form upon a get request on /books/new
+===== NOW:
+    => New route: a get request on /books/:id => it'll list a single book's detail
+        => using forEach loop in books.ejs page, we'll add anchor tags with the necessary href links with books ids
+        => Add edit and delete books options
+
+===== ASSOCIATION:
+    => Make a author's schema and a collection of authors in the same database following the process defined above with the following fields:
+        -- name, email and age.
+    => After that, to associate authors with their respective books:
+        => Ofcourse we'll have to drop/delete all the old book documents before implementing this.
+        => Add another "author" field with following options in the Book.js Model file:
+
+            author: {
+                type: Schema.Types.ObjectId,
+                required: true,
+            }
+
+        => Now that the author field is mandatory, there needs to be some way to allow the access to all the authors to the input form.
+        => To do that, while rendering the form, we'll access all the authors and create an option for each author in the select tag in the form.
+
+            res.render("bookForm", {authors: authors.find()});
+
+            <select>
+                authors.forEach(author => {
+                    <option value="author._id">author.name</option>
+                });
+            </select>
+
+        => ...so that the name of the author will be displayed in the option but upon selection the value passed will be the id of the author.
+
+    => Now we want that every book is associated with atleast one author.
+    => The types of associations that follow:
+        => One to one association: One resource has the access to another. Eg, every author is associated with one address and every address is associated with only one author.
+        => One to many assciation: One resource has access to multiple resource but not vice-versa. Eg, assuming that each book is authored by only one author, so each book will be associated with only one author but each author can have authored mulitple books.
+
+    => Populating:
+        => While defining the scheama, within author field in Book.js, define author like:
+
+            author: {
+                type: Schema.Types.ObjectId,
+                ref: Author,
+            },
+
+        => ...value for ref being the name of the model from where the value will be populated.
+        => Calling the populate method: 
+            
+            BookModel.find().populate("author").exec((err, result) => {});
+
+            => Here, the find method returns all the matches, ie. all the books, and pipes the result to populate
+            => populate method receives the name of the field to be populated, and pipes the result to the following method,
+            => exec method receives a callback function which receives the error and result, result being all the books prepopulated with the author object in place of just an ObjectId in the author field.
+
+==================================================
+Book editing and deletion taken care of, author update subsequently.
+Author editing, no issues.
+Author deletion not handled.
+==================================================
