@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Pets</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, maximum-scale=2.0" />
+  <!-- Stylesheets -->
+  <!-- CDN -->
+  <!-- Bulma -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <!-- React, ReactDOM and Babel -->
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+  <!-- My Styles -->
+  <style type="text/css">
+    .container-width {
+      width: 40vw;
+    }
+
+    .margin-center {
+      margin: 10px auto;
+    }
+
+    .center-children {
+      display: grid;
+      place-items: center;
+    }
+
+    .img{
+      height: 100px;
+      width: 100px;
+      border-radius: 50%; 
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1 class="title is-1">Pets</h1>
+    <hr />
+  </header>
+
+  <main>
+    <div class="container-width margin-center box">
+      <h2 class="title is-2">CATS</h2>
+      <div id="rootCats"></div>
+      <hr />
+      <h2 class="title is-2">DOGS</h2>
+      <div id="rootDogs"></div>
+    </div>
+  </main>
+
+  <!-- JS -->
+  <script type="text/babel">
+    // Javascript //
+
+    // Declaring global variables and Constants //
+    const PETS = [
+      {
+        "name" : "Purrsloud",
+        "species" : "Cat",
+        "favFoods" : ["wet food", "dry food", "any food"],
+        "birthYear" : 2016,
+        "photo" : "https://learnwebcode.github.io/json-example/images/cat-2.jpg"
+      },
+      {
+        "name" : "Barksalot",
+        "species" : "Dog",
+        "birthYear" : 2008,
+        "photo" : "https://learnwebcode.github.io/json-example/images/dog-1.jpg"
+      },
+      {
+        "name" : "Meowsalot",
+        "species" : "Cat",
+        "favFoods" : ["tuna", "catnip", "celery"],
+        "birthYear" : 2012,
+        "photo" : "https://learnwebcode.github.io/json-example/images/cat-1.jpg"
+      }
+    ];
+
+    // Declaring Functions and Classes //
+    // init function
+    function init(){
+      // declaring variables
+      let cats = [];
+      let dogs = [];
+
+      // segregating animals on the basis of species
+      PETS.forEach(pet => {
+        if(pet.species === "Cat") cats.push(pet);  
+        else if(pet.species === "Dog") dogs.push(pet);
+      });
+
+      // displaying animals
+      displayAnimals("rootCats", cats);
+      displayAnimals("rootDogs", dogs);
+    }
+
+    // diplaying animals
+    // elmId: Id of the target element to render the animals in
+    // animalsArr: arr of animals to be displayed
+    function displayAnimals(elmId, animalsArr){
+      // selecting container element
+      let animalContainer = document.querySelector(`#${elmId}`);
+
+      // rendering container for each cat
+      ReactDOM.render(
+        <div>
+
+          {
+            animalsArr.map(animal => {
+              return (<Animal photo={animal.photo} name={animal.name} birthYear={animal.birthYear} favFoods={animal.favFoods}/>)
+              })
+          }
+
+        </div>,
+        animalContainer
+      );
+    }
+
+    // Animal class
+    class Animal extends React.Component{
+      render(){
+        return (
+          <div>
+            <div className="about">
+              <img className="img" src={this.props.photo}/>
+              <h1 className="title is-3">{this.props.name}</h1>
+              <p className="subtitle">{this.props.birthYear}</p>
+            </div>
+            <div className="favFoods">
+              <h3 className="title is-4">Fav Foods</h3>
+              {
+                this.props.favFoods ? this.props.favFoods.map(food => {return (<p className="subtitle">{food}</p>)}) : <p className="subtitle">None</p>
+              }
+            </div>
+          </div>
+        );
+      }
+    }
+
+    // Execution //
+    init();
+
+  </script>
+</body>
+
+</html>

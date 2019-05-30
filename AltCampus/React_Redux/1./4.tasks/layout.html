@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Layout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, maximum-scale=2.0" />
+  <!-- Stylesheets -->
+  <!-- CDN -->
+  <!-- React and ReactDOM -->
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <!-- Babel -->
+  <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+  <!-- Bulma -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+  <!-- font awesome -->
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <!-- My styles -->
+  <link rel="stylesheet" href="./layout.css" />
+</head>
+
+<body>
+  <header>
+    <h1 class="title is-2 padding">Layout</h1>
+    <hr />
+  </header>
+
+  <main>
+
+    <div class="container margin-bottom">
+      <div class="tile is-ancestor">
+        <div class="tile is-vertical is-4">
+          <div class="tile">
+            <div class="tile is-parent is-vertical">
+
+              <div id="rootContainer0" class="tile is-parent">
+
+              </div>
+
+              <div id="rootContainer1" class="tile is-parent">
+                <!-- <article id="1" class="tile is-child notification is-warning">
+                  <p class="title">ABC</p>
+                  <p class="subtitle">Janitor</p>
+                  <p><a class="button is-danger">Delete</a></p>
+                </article> -->
+              </div>
+
+              <div id="rootContainer2" class="tile is-parent">
+                <!-- <article id="2" class="tile is-child notification is-warning">
+                  <p class="title">DEF</p>
+                  <p class="subtitle">Teacher</p>
+                  <p><a class="button is-danger">Delete</a></p>
+                </article> -->
+              </div>
+
+              <div id="rootContainer3" class="tile is-parent">
+
+              </div>
+              <div id="rootContainer4" class="tile is-parent">
+
+              </div>
+              <div id="rootContainer5" class="tile is-parent">
+
+              </div>
+              <div id="rootContainer6" class="tile is-parent">
+
+              </div>
+              <div id="rootContainer7" class="tile is-parent">
+
+              </div>
+              <div id="rootContainer8" class="tile is-parent">
+
+              </div>
+              <div id="rootContainer9" class="tile is-parent">
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="rootForm" class="rootForm container box">
+      <div class="field">
+        <label class="label">Name</label>
+        <div id="nameInputContainer" class="control">
+          <input id="nameInput" class="input" type="text" placeholder="e.g Alex Smith">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Job</label>
+        <div id="jobInputContainer" class="control">
+          <input id="jobInput" class="input" type="text" placeholder="e.g. teacher">
+        </div>
+      </div>
+
+      <a id="submitBtn" class="button is-primary">Submit</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <hr />
+      <ul>
+        <li><a href="./index.html">Grid By Example 1</a></li>
+        <li><a href="./gridByExample2.html">Grid By Example 2</a></li>
+      </ul>
+    </div>
+  </footer>
+  <!-- JS -->
+  <script type="text/babel">
+    // Javascript //
+
+    // importing modules
+    // import ReactDOM from "react-dom";
+
+    // declaring global varaibles
+    let infoStore = [];
+    let colors = ["is-primary", "is-warning", "is-danger", "is-success", "is-info"];
+
+    // handling submit event
+    function handleSubmit() {
+      let submitBtn = document.querySelector("#submitBtn");
+
+      submitBtn.addEventListener("click", () => {
+        // extracting info
+        let info = extractInfo();
+        infoStore.push(info);
+
+        // checking if number of users exceed 10
+        if(infoStore.length === 10) {
+          infoStore.pop();
+          alert("Maximum user limit reached!");
+        }
+
+        displayInfoTiles();
+        
+        // resetting inputs
+        let inputs = recreateInputs();
+        renderInputs(inputs);
+      });
+    }
+
+    // displaying info
+    function displayInfoTiles(){
+      for(let i = 0, n = infoStore.length; i < n; i++){
+          let targetDiv = document.querySelector(`#rootContainer${i}`);
+          ReactDOM.render(<GenerateHtml color={colors[i >= colors.length ? i - colors.length : i]} name={infoStore[i].name} job={infoStore[i].job} index={i}/>, targetDiv);
+      }
+    }
+
+    // generating html
+    class GenerateHtml extends React.Component {
+      render(){  
+        let generatedHtml = <article id={this.props.index} className={`tile is-child notification ${this.props.color}`}>
+          <p className="title">{this.props.name}</p>
+          <p className="subtitle">{this.props.job}</p>
+          <p><a onClick={() => {clearTileAndRender(this.props.index)}} className="button is-danger">Delete</a></p>
+          </article>;
+        return generatedHtml;
+      }
+    }
+
+    // clearing the selected tile and updating the infoStore
+    function clearTileAndRender(index){
+      ReactDOM.render(<article />, document.querySelector("#rootContainer" + index));
+      // updating infoStore
+      infoStore = infoStore.filter((info, ind) => index !== ind);
+
+      displayInfoTiles();
+    }
+
+    // extracting info from input fields
+    function extractInfo() {
+      let nameInput = document.querySelector("#nameInput");
+      let jobInput = document.querySelector("#jobInput");
+      let name = nameInput.value;
+      let job = jobInput.value;
+      return { name, job };
+    }
+
+    // recreating inputs with empty fields
+    function recreateInputs() {
+      return [
+        <input id="nameInput" defaultValue="" className="input" type="text" placeholder="e.g Alex Smith" />,
+        <input id="jobInput" defaultValue="" className="input" type="text" placeholder="e.g. teacher" />
+      ];
+    }
+
+    // resetting input values
+    function renderInputs(inputFields) {
+      ReactDOM.render(inputFields[0], document.querySelector("#nameInputContainer"));
+      ReactDOM.render(inputFields[1], document.querySelector("#jobInputContainer"));
+      return 0;
+    }
+
+    // execution
+    handleSubmit();
+
+  </script>
+</body>
+
+</html>

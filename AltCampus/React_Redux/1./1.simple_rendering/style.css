@@ -1,0 +1,26 @@
+/* style.css */
+
+.container-center {
+  margin: 0 auto 0 auto;
+}
+
+.margin-top{
+  margin-top: 100px;
+}
+
+.margin-bottom {
+  margin-bottom: 100px;
+}
+
+.container-width {
+  width: 50vw;
+}
+
+.hr {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.bgc-black {
+  background-color: black;
+}

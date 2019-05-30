@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Buttons</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, maximum-scale=2.0" />
+  <!-- Stylesheets -->
+  <!-- CDN -->
+  <!-- Bulma -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <!-- React, ReactDOM and Babel -->
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+  <!-- My Styles -->
+  <style type="text/css">
+    .container-width {
+      width: 40vw;
+    }
+
+    .margin-center {
+      margin: 10px auto;
+    }
+
+    .center-children {
+      display: grid;
+      place-items: center;
+    }
+
+    .display-block{
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1 class="title">Buttons</h1>
+    <hr />
+  </header>
+
+  <!-- 
+    Type: Primary=is-primary | Secondary=is-focused | Tertiary=is-loading
+    Sizes: Small=is-small | Medium=is-normal | Large=is-large
+    Theme: Dark=is-dark | Light=is-light
+   -->
+
+  <main>
+    <div id="root"></div>
+  </main>
+
+  <!-- JS -->
+  <script type="text/babel">
+    // Javascript //
+
+    // importing modules
+    // import ReactDOM from "react-dom";
+
+    // Declaring global variables and Constants //
+    let TYPE = ["is-primary", "is-focused", "is-loading"];
+    let SIZE = ["is-small", "is-medium", "is-large"];
+    let THEME = ["is-dark", "is-light"];
+
+    // Declaring Functions and Classes //
+    // Button class
+    class Btn extends React.Component{
+      render(){
+        return (
+          <button className={`button display-block margin-center ${this.props.type} ${this.props.size} ${this.props.theme}`}>Button</button>
+        );
+      }
+    }
+
+    // creating buttons with type, size and theme combinations
+    function createBtns(){
+      // selecting target div
+      let targetDiv = document.querySelector("#root");
+      // rendering the btn
+      ReactDOM.render(
+        <div class="root container-width margin-center box center-children">
+          <Btn type={TYPE[0]} size={SIZE[0]} theme={THEME[0]} />
+          <Btn type={TYPE[0]} size={SIZE[0]} theme={THEME[1]} />
+          <Btn type={TYPE[0]} size={SIZE[1]} theme={THEME[0]} />
+          <Btn type={TYPE[0]} size={SIZE[1]} theme={THEME[1]} />
+          <Btn type={TYPE[0]} size={SIZE[2]} theme={THEME[0]} />
+          <Btn type={TYPE[0]} size={SIZE[2]} theme={THEME[1]} />
+          <Btn type={TYPE[1]} size={SIZE[0]} theme={THEME[0]} />
+          <Btn type={TYPE[1]} size={SIZE[0]} theme={THEME[1]} />
+          <Btn type={TYPE[1]} size={SIZE[1]} theme={THEME[0]} />
+          <Btn type={TYPE[1]} size={SIZE[1]} theme={THEME[1]} />
+          <Btn type={TYPE[1]} size={SIZE[2]} theme={THEME[0]} />
+          <Btn type={TYPE[1]} size={SIZE[2]} theme={THEME[1]} />
+          <Btn type={TYPE[2]} size={SIZE[0]} theme={THEME[0]} />
+          <Btn type={TYPE[2]} size={SIZE[0]} theme={THEME[1]} />
+          <Btn type={TYPE[2]} size={SIZE[1]} theme={THEME[0]} />
+          <Btn type={TYPE[2]} size={SIZE[1]} theme={THEME[1]} />
+          <Btn type={TYPE[2]} size={SIZE[2]} theme={THEME[0]} />
+          <Btn type={TYPE[2]} size={SIZE[2]} theme={THEME[1]} />
+        </div>,
+      targetDiv);
+    }
+
+    // Execution //
+    createBtns();
+    
+  </script>
+</body>
+
+</html>

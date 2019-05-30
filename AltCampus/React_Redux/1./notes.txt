@@ -1,0 +1,30 @@
+===== DAY 1 =====
+
+tasks: =====
+=> attribute vs properties
+=> react source code github
+=> write fn createElement(type, attr, children);
+=> react & reactDOM
+=> babel: babel-standalone package cdn
+=> gridbyexample 2 layout
+=> One layout
+
+============
+
+react-setup
+=> Initialised dir with: npm init
+=> Installed dependencies: npm install react react-dom --save
+  => react to create elements and whatnot
+  => reactDOM to interact with DOM.
+=> To keep a conventional folder structure, saving javascript files in src directory.
+
+============
+react-app
+=> create-react-app ${name of the dir}
+  => To initialise the directory with react.
+
+============
+DAY 2
+============
+2 projects
+=> react docs

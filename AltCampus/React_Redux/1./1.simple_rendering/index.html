@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Day 1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2.0, user-scalable=yes" />
+  <!-- Stylesheets -->
+  <!-- CDN -->
+  <!-- Bulma -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <!-- React and ReactDOM -->
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <!-- Babel -->
+  <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+
+  <div class="container box container-center margin-top margin-bottom container-width">
+    <div class="field">
+      <p class="control has-icons-left has-icons-right">
+        <input id="usernameInput" class="input" name="username" type="text" placeholder="username">
+        <span class="icon is-small is-left">
+          <i class="fas fa-envelope"></i>
+        </span>
+        <span class="icon is-small is-right">
+          <i class="fas fa-check"></i>
+        </span>
+      </p>
+    </div>
+    <div class="field">
+      <p class="control has-icons-left">
+        <input id="passwordInput" class="input" name="password" type="password" placeholder="Password">
+        <span class="icon is-small is-left">
+          <i class="fas fa-lock"></i>
+        </span>
+      </p>
+    </div>
+    <div class="field">
+      <p class="control">
+        <button id="submitBtn" class="button is-success">
+          Submit
+        </button>
+      </p>
+    </div>
+  </div>
+
+  <hr class="container-center container-width hr bgc-black" />
+
+  <div class="container box container-center container-width margin-bottom">
+    <ul id="userList"></ul>
+  </div>
+
+  <!-- JS -->
+  <script type="text/babel">
+    // MAIN.JS //
+
+    // Declaring global variables and constants
+
+
+    // Declaring functions //
+    // adding new user
+    function addingUser() {
+      // extracting username and password and resetting input fields
+      let username = document.querySelector("#usernameInput").value;
+      document.querySelector("#usernameInput").value = "";
+      let password = document.querySelector("#passwordInput").value;
+      document.querySelector("#passwordInput").value = "";
+
+      // returning new li
+      return (
+        // React.createElement("li", {}, React.createElement("ul", {}, [React.createElement("li", {}, `user: ${username}`), React.createElement("li", {}, `pass: ${password}`)]))
+        <li>
+          <ul>
+            <li>user: {username}</li>
+            <li>pass: {password}</li>
+          </ul>
+          <hr className="container-center container-width hr bgc-black" />
+        </li>
+      );
+    }
+
+    // handling submit event
+    function submitHandler() {
+      let submitBtn = document.querySelector("#submitBtn");
+
+      submitBtn.addEventListener("click", () => {
+        let userHtml = addingUser();
+
+        ReactDOM.render(userHtml, document.querySelector("#userList"));
+      });
+    }
+
+    // Execution //
+    submitHandler();
+
+  </script>
+</body>
+
+</html>

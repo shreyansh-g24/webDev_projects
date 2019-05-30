@@ -1,0 +1,16 @@
+{
+  "name": "4.tasks",
+  "version": "1.0.0",
+  "description": "Day 1 React tasks",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "SG",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
