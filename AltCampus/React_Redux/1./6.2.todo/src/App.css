@@ -1,0 +1,22 @@
+.padding{
+  padding: 50px;
+}
+
+.todoHeading{
+  width: 10vw;
+  margin: 20px auto;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+.todoContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.todo {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+}

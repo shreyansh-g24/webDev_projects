@@ -28,3 +28,9 @@ DAY 2
 ============
 2 projects
 => react docs
+
+============
+DAY 3
+============
+Todo
+=> react docs
