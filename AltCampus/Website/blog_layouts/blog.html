@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2.0, user-scalable=yes" />
+  <!-- Stylesheets -->
+  <!-- CDN -->
+  <!-- Bulma -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <!-- React and ReactDOM -->
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <!-- Babel -->
+  <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+
+  <div id="root"></div>
+
+</body>
+
+<!-- JS -->
+<script type="text/babel">
+
+  // Main.js //
+
+  // Declaring Functions //
+
+  // Initialising home page
+  function HomeInit() {
+    
+    return (
+      <main>
+
+        <nav className="pagination is-centered padding-10px" role="navigation" aria-label="pagination">
+          <a href="./index.html" className="pagination-previous">Home Page</a>
+          <a className="pagination-previous">Previous</a>
+          <a className="pagination-next">Next page</a>
+          <ul className="pagination-list">
+            <li><a className="pagination-link" aria-label="Goto page 1">1</a></li>
+            <li><span className="pagination-ellipsis">&hellip;</span></li>
+            <li><a className="pagination-link" aria-label="Goto page 45">45</a></li>
+            <li><a className="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
+            <li><a className="pagination-link" aria-label="Goto page 47">47</a></li>
+            <li><span className="pagination-ellipsis">&hellip;</span></li>
+            <li><a className="pagination-link" aria-label="Goto page 86">86</a></li>
+          </ul>
+        </nav>
+
+        <header className="hero is-medium is-primary is-bold margin-bottom">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title is-2">
+                Blog Title
+              </h1>
+              <h2 className="subtitle">
+                Description
+              </h2>
+            </div>
+          </div>
+        </header>
+
+        <main className="container box margin-bottom">
+
+          <section className="content">
+            <p className="content is-medium">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque.
+            </p>
+            <ul>
+              <li>Point 1</li>
+              <li>Point 2</li>
+              <li>Point 3</li>  
+              <li>Point 4</li>
+              <li>Point 5</li>
+            </ul>
+            <p className="content is-medium">
+              Conclusion: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque.
+            </p>
+          </section>
+
+        </main>
+
+        <footer className="footer">
+          <div className="content has-text-centered">
+            <p>
+              <strong>Blogs</strong> by <a href="https://sg24.github.io">SG</a>. The source code is licensed
+              <a href="http://opensource.org/licenses/mit-license.php"> MIT</a>. The website content
+              is made using <a href="https://bulma.io">Bulma</a>.
+            </p>
+          </div>
+        </footer>
+      </main>
+    );
+  }
+
+  // Rendering JSX //
+  ReactDOM.render(<HomeInit />, document.querySelector("#root"));
+
+</script>
+
+</html>

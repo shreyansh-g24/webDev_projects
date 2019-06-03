@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2.0, user-scalable=yes" />
+  <!-- Stylesheets -->
+  <!-- CDN -->
+  <!-- Bulma -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <!-- React and ReactDOM -->
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <!-- Babel -->
+  <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+
+  <div id="root"></div>
+
+</body>
+
+<!-- JS -->
+<script type="text/babel">
+
+  // Main.js //
+
+  // Declaring Functions //
+
+  // Initialising home page
+  function HomeInit() {
+    
+    return (
+      <main>
+        <header className="hero is-medium is-primary is-bold margin-bottom">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title is-2">
+                Blogs
+              </h1>
+              <h2 className="subtitle">
+                Home
+              </h2>
+            </div>
+          </div>
+        </header>
+
+        <main className="container margin-bottom">
+
+          <div className="tile is-ancestor">
+            <div className="tile is-vertical is-8">
+              <div className="tile">
+                <div className="tile is-parent is-vertical">
+                  <article className="tile is-child notification is-primary">
+                    <p className="title"><a href="./blog.html">Blog 1 Title</a></p>
+                    <p className="subtitle">Description...</p>
+                  </article>
+                  <article className="tile is-child notification is-warning">
+                    <p className="title"><a href="./blog.html">Blog 2 Title</a></p>
+                    <p className="subtitle">Description...</p>
+                  </article>
+                </div>
+                <div className="tile is-parent">
+                  <article className="tile is-child notification is-info">
+                    <p className="title"><a href="./blog.html">Blog 3 Title</a></p>
+                    <p className="subtitle">Description...</p>
+                    <figure className="image is-4by3">
+                      <img src="https://bulma.io/images/placeholders/640x480.png" />
+                    </figure>
+                  </article>
+                </div>
+              </div>
+              <div className="tile is-parent">
+                <article className="tile is-child notification is-danger">
+                  <p className="title"><a href="./blog.html">Blog 4 Title</a></p>
+                  <p className="subtitle">Description...</p>
+                  <div className="content">
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div className="tile is-parent">
+              <article className="tile is-child notification is-success">
+                <div className="content">
+                  <p className="title"><a href="./blog.html">Blog 5 Title</a></p>
+                  <p className="subtitle">Description...</p>
+                  <div className="content">
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+        </main>
+
+        <footer className="footer">
+          <div className="content has-text-centered">
+            <p>
+              <strong>Blogs</strong> by <a href="https://sg24.github.io">SG</a>. The source code is licensed
+              <a href="http://opensource.org/licenses/mit-license.php"> MIT</a>. The website content
+              is made using <a href="https://bulma.io">Bulma</a>.
+            </p>
+          </div>
+        </footer>
+      </main>
+    );
+  }
+
+  // Rendering JSX //
+  ReactDOM.render(<HomeInit />, document.querySelector("#root"));
+
+</script>
+
+</html>
