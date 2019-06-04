@@ -149,7 +149,9 @@ class App extends React.Component {
 							{this.state.timeline.map((state, move) => {
 								return (
 									<li className="margin-bottom-10" key={move}>
-										<button onClick={() => this.handleTimelineClick(move)}>
+										<button
+											onClick={event => this.handleTimelineClick(move, event)}
+										>
 											{move ? "Go to move " + move : "Go to start"}
 										</button>
 									</li>
