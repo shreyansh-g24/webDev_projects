@@ -104,7 +104,7 @@
             cb(null, user.id);
         });
 
-        => Every time a request is returned from the browser, this checks if the userid exists and finds the user in the database, and returns the callback with null as the error and the entire user object so we can find with user sent the request.
+        => Every time a request is returned from the browser, this checks if the userid exists and finds the user in the database, and returns the callback with null as the error and the entire user object so we can find which user sent the request.
 
         passport.deserializeUser((id, cb) => {
             User.findbyId(id, (err, user) => {

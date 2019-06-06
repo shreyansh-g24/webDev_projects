@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Grid By Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, maximum-scale=2.0">
+  <!-- Stylesheets -->
+  <!-- CDN -->
+  <!-- React and ReactDOM -->
+  <script crossorigin="" src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin="" src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <!-- Babel -->
+  <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+  <!-- My styles -->
+  <link rel="stylesheet" href="/gridByExample2.d2b0a78e.css">
+<script src="/gridByExample2.d2b0a78e.js"></script></head>
+
+<body>
+  <header>
+    <h1>Grid By Example: Layout 2</h1>
+    <hr>
+  </header>
+  <main>
+    <div class="root"></div>
+  </main>
+  <footer>
+    <hr>
+    <ul>
+      <li><a href="/index.html">Grid By Example 1</a></li>
+      <li><a href="/layout.html">Layout Page</a></li>
+    </ul>
+  </footer>
+  <!-- JS -->
+  <script type="text/babel">
+    // Javascript 
+
+    // importing modules
+    // import ReactDOM from "react-dom";
+    
+    // returning html
+    function GridHtml(){
+      return (
+        <div className="wrapper">
+          <header className="header">My header</header>
+          
+          <article className="content">
+            <h1>Using negative space</h1>
+            <p>This example uses line-based positioning, to position the header and footer, stretching them across the grid.</p>
+            
+            <p>By making the content span a number of rows, we can then space the blocks out next to that content. Each in their own row.</p>
+          </article>
+          
+          <div className="block-a">Block A</div>
+          <div className="block-b">Block B</div>
+          <div className="block-c">Block C</div>
+          <footer className="footer">My footer</footer>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<GridHtml />, document.querySelector(".root"));
+
+  </script>
+</body>
+
+</html>
