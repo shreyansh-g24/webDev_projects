@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, maximum-scale=2.0" />
+</head>
+
+<body>
+  <div>
+    <input placeholder="todo" type="text" id="todo" />
+    <button id="addTodo">Add</button>
+  </div>
+  <ul id="todos"></ul>
+
+</body>
+<!-- JS -->
+<script type="text/javascript" src="./main.js"></script>
+<script type="text/javascript">
+
+  // selecting elements
+  let todoInput = document.querySelector("#todo");
+  let todoAddBtn = document.querySelector("#addTodo");
+  let todoList = document.querySelector("#todos");
+
+  // defining reducer to add todo
+  function reducer(data, action){
+    if(action.type === "ADD_TODO") return data.concat(action.value);
+  }
+
+  // defining subscribers
+  function parseToHTML(data = []){
+    return data.map(d => {
+      return `<li>${d}</li>`;
+    }).join("");
+  }
+
+  // creating store
+  let todoStore = createStore(reducer, [], parseToHTML);
+
+  // handling btn click
+  todoAddBtn.addEventListener("click", () => {
+    // extracting todo
+    let todo = todoInput.value;
+    todoInput.value = "";
+
+    // adding todo to store
+    todoList.innerHTML = todoStore.dispatch({
+      type: "ADD_TODO",
+      value: todo,
+    });
+  });
+
+</script>
+
+</html>
