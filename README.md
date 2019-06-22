@@ -1,2 +1,2 @@
 # webDev_projects
-Web Development Projects
+HTML & CSS, Javascript, node and react Web Development Projects
