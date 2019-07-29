@@ -797,7 +797,8 @@ DFT: Depth First Traversal: Traverses over on entire branch until you reach the 
     // in bft, we take an entry point from where to start search, usually it is the root node. Then we traverse over all the children of the root, then the children of each of those children and so on, moving down level by level.
     // currently, just traversing over the tree and printing all data values
     // defaults start point to root node
-    // time complexity: 
+    // time complexity: O(N), linear time complexity
+    // the time complexity of all queue methods is constant, but we are traversing over all nodes of the tree and printing them, hence linear
     bft(start = this.root){
       let position = start;
       let queue = new Queue();
@@ -822,7 +823,8 @@ DFT: Depth First Traversal: Traverses over on entire branch until you reach the 
     // In dft, we take an entry point from where to start search, usually it is the root node. Then we traverse over an entire branch first until we reach element with no children, then we move on to the next branch, instead of moving level by level.
     // currently, just traversing over the tree and printing all the data values
     // defaults start point to the root node
-    // time complexity:
+    // time complexity: O(N), linear time complexity
+    // the time complexity of all stack elements is constant, but we are traversing over all the nodes of the tree and printing them, hence linear complexity
     dft(start = this.root){
       let position = start;
       let stack = new Stack();
