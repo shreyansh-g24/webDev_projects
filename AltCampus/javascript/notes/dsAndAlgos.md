@@ -577,6 +577,113 @@ class LinkedList {
   }
 }
 
+```
+
+## Doubly Linked List
+Same as linked list, except the fact that in this each node has a pointer to both next and previous element. The first node's previous points to null and next of last node points to null. Also as storage, we define both head and tail pointers.
+
+```js
+
+// Declares class node
+// receives, the data, pointer to the next node and pointer to the previous node
+class Node {
+  constructor(data, previous, next){
+    this.data = data;
+    this.next = next;
+    this.previous = previous;
+  }
+}
+
+class DoublyLinkedList {
+  constructor () {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+
+  // adding to the end of the list, so the next will always point to null;
+  // time complexity: O(1), constant
+  push(val){
+    let previous, next;
+    // if there's no node in the linked list yet, previous node will also be null, and head will point to the newNode
+    if (!this.length) previous = null;
+    else if (this.length) previous = this.tail;
+    // newNode's next will always point to null
+    next = null;
+    // creates a newNode
+    let newNode = new Node(val, previous, next);
+    // if no nodes yet, head will also be updated to point to the newNode
+    if(!this.length) this.head = newNode;
+    // current tail's next will point to the newNode
+    this.tail.next = newNode;
+    // the tail will be updated, the new tail will be the newNode
+    this.tail = newNode;
+    // updates and returns length
+    this.length++;
+    return this.length;
+  }
+
+  // removes the last node
+  // time complexity: O(1), constant
+  pop(){
+    let removedNode;
+    // if no nodes, return undefined
+    if(!this.length) return undefined;
+    // if only one node, return that node and update head and tail to point to null
+    else if(this.length === 1) {
+      removedNode = this.head;
+      this.head = null;
+      this.tail = null;
+    }
+    // else if there are multiple nodes
+    // updates the tail to point to the previous node of the current tail. And updates the next of previous of current tail, to point to null
+    else {
+      removedNode = this.tail;
+      this.tail = this.tail.previous;
+      this.tail.next = null;
+    }
+    // updates the length
+    this.length--;
+    // returns removedNode
+    return removedNode;
+  }
+
+  // returns the element to be removed on next push
+  // time complexity: O(1), constant
+  peek(){
+    return this.tail;
+  }
+
+  // adds node to the beginning
+  // time complexity: O(1), constant
+  prepend(val){
+    // if no nodes, next point's to null else next will be the current head
+    let next, previous;
+    if(!this.length) next = null;
+    else if(this.length) next = this.head;
+    // previous will always be null since adding to the beginning of the list
+    previous = null;
+    // creates new node with pre-defined val, previous and next.
+    let newNode = new Node(val, previous, next);
+    // if no nodes, the tail also needs to be updated to point to the newNode
+    if(!this.length) this.tail = newNode;
+    // current head's previous will point to the new node
+    this.head.previous = newNode;
+    // updates head to point to the new node
+    this.head = newNode;
+    // updates and returns length.
+    this.length++;
+    return this.length;
+  }
+}
 
 ```
 
+## Tree
+There's one root, and root has one or more branches, and each branches have one or more sub-branches and so on.
+There's only one way flow, each node is uni-directional, ie. a lower level branch cannot point to an upper level branch or one on the same level, (otherwise this would create a circular structure).
+Binary Search Tree: A type of tree but each node can only have 2 children.
+
+```js
+
+```
