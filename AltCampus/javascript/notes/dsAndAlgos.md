@@ -684,6 +684,166 @@ There's one root, and root has one or more branches, and each branches have one 
 There's only one way flow, each node is uni-directional, ie. a lower level branch cannot point to an upper level branch or one on the same level, (otherwise this would create a circular structure).
 Binary Search Tree: A type of tree but each node can only have 2 children.
 
+Searching approaches:
+BFT (better algo) : Breadth First Traversal: Traverses over one entire level first before moving to the next level
+DFT: Depth First Traversal: Traverses over on entire branch until you reach the next element in the branch, then switch branches.
+
 ```js
+
+  // declares stack
+  // LIFO
+  class Stack {
+    constructor(){
+      this.storage = {};
+      this.count = 0;
+    }
+
+    // time complexity: O(1), constant
+    push(val) {
+      this.storage[this.count] = val;
+      this.count++;
+      return this.count;
+    }
+
+    // time complexity: O(1), constant
+    pop(){
+      if(this.count === 0) return undefined;
+
+      this.count--;
+      let pop = this.storage[this.count];
+      delete this.storage[this.count];
+      return pop;
+    }
+
+    // returns the next elemenet to be deleted
+    // time complexity: O(1), constant
+    peek(){
+      if(this.count === 0) return undefined;
+
+      return this.storage[this.count - 1];
+    }
+  }
+
+  // declares queue
+  // FIFO
+  class Queue {
+    constructor(){
+      this.head = 0;
+      this.storage = {};
+      this.tail = 0;
+    }
+
+    // time complextiy: O(1), constant
+    push(val){
+      this.storage[this.tail] = val;
+      this.tail++;
+      return this.tail - this.head;
+    }
+
+    // time complexity: O(1), constant
+    pop(){
+      if(this.head === this.tail) return undefined;
+
+      let pop = this.storage[this.head];
+      delete this.storage[this.head];
+      this.head++;
+      return pop;
+    }
+
+    // time complexity: O(1), constant
+    peek(){
+      if(this.head === this.tail) return undefined;
+
+      return this.storage[this.head];
+    }
+  }
+
+  // declares node class
+  class Node {
+    constructor(data){
+      this.data = data;
+      // by default each new node will not have any children
+      this.children = [];
+    }
+
+    // adds new Node
+    // time complexity: O(1), constant
+    addChild(data){
+      let childNode = new Node(data);
+      // updates the children array of the current node to include a new child
+      this.children.push(childNode);
+      // returns the current node with updated children array
+      return this;
+    }
+
+    // removed all children nodes with data equal to the value passed
+    // In a normal tree, it's still fine but in binary search tree, each node's data need to be unique to uniquely identify the node to be removed by data value. In tree, you can have mutiple nodes with same data value but they cannot be on the same level. On a given level, data values need to be unique for each node.
+    // time complexity: O(N), linear time complexity (better would be to use for loop if you add check to ensure unique data value on a level, so if you find a match in the for loop, break out since there's no other nodes in the children array with the given data.)
+    removeChildren(data){
+      // updates the children array to remove nodes with data equal to the given data
+      this.children = this.children.filter(node => node.data !== data);
+      // returns the current node with updated children array
+      return this; 
+    }
+  }
+
+  // declares class tree
+  class Tree {
+    constructor(){
+      // initially the root will point to null
+      this.root = null;
+    }
+
+    // in bft, we take an entry point from where to start search, usually it is the root node. Then we traverse over all the children of the root, then the children of each of those children and so on, moving down level by level.
+    // currently, just traversing over the tree and printing all data values
+    // defaults start point to root node
+    // time complexity: 
+    bft(start = this.root){
+      let position = start;
+      let queue = new Queue();
+      queue.push(position);
+
+      // continues the loop until there's no elements left in the queue
+      while(queue.count !== 0){
+        // Using FIFO, removes the first added node from the stack and adds it's children to the stack.
+        // Consequently, it traverses over an entire generation or level before moving over to a deeper level/generation
+        let removedNode = queue.pop();
+        let chilren = removedNode.children;
+
+        for(let i = 0, n = children.length; i < n; i++){
+          queue.push(children[i]);
+        }
+
+        // prints the removed Node
+        console.log(removedNode);
+      };
+    }
+
+    // In dft, we take an entry point from where to start search, usually it is the root node. Then we traverse over an entire branch first until we reach element with no children, then we move on to the next branch, instead of moving level by level.
+    // currently, just traversing over the tree and printing all the data values
+    // defaults start point to the root node
+    // time complexity:
+    dft(start = this.root){
+      let position = start;
+      let stack = new Stack();
+      stack.push(position);
+
+      // continues the loop, until there's no elements left in the stack
+      while(stack.count !== 0){
+        // Using LIFO, removes the last added elements from the stack and adds it's elements in the stack
+        // consequently traversing over until the last element in one branch before moving onto next branch
+        let removedNode = stack.pop();
+        let children = removedNode.children;
+
+        for(let i = 0, n = children.length; i < n; i++){
+          stack.push(children[i]);
+        }
+
+        // prints the removedNode
+        console.log(removedNode);
+      }
+    }
+
+  }
 
 ```
