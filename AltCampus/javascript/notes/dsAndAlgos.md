@@ -849,3 +849,168 @@ DFT: Depth First Traversal: Traverses over on entire branch until you reach the 
   }
 
 ```
+
+## Binary search tree
+Same as a Tree except for that there are only 2 children nodes of any node at max, the nodes are unique, and all the nodes less than the root node are to the left and the ones greater than the root node are to the right of the root node.
+
+Methods: add/insert O(N), avg logN
+search/contains O(N), avg logN
+min, O(N), avg logN
+max, O(N), avg logN
+inOrderTraversal, O(N) as the pointer will have to traverse over all the elements eventually
+
+```js
+
+// declares Node 
+class Node {
+  constructor(data){
+    this.data = data;
+    // by default the elements to the right and left will be null
+    this.left = null;
+    this.right = null;
+  }
+
+  // adds an element to the binary search tree
+  // time complexity: 
+  add(data){
+
+  }
+
+  // finds and returns the minimum value
+
+  min(){
+
+  }
+
+  //
+}
+
+```
+
+## Graph
+In Graph each node is called a vertice and the line connecting two vertices is called an edge. There are two types of graph, unidirectional and bidirectional/undirected graph. In the former, you can only move one way e.g a single lane road, and in the latter you can move to and fro in both directions eg a two way road. Think of graph as locations on a map, in a directed graph you can move from one place to another, and back. and similar connection with other locations. But there can be two locations no linked to each other at all, or there can be two places linked in a way that you can move from a to b but not from b to a. In an undirected graph, if two places are connected, you can move back and forth between them, there is always a two way road between them.
+
+Representing graphs as:
+
+### Matrix: adjacent Matrix;
+It is a matrix, all vertices in both rows and columns, (hence a square matrix), and then to record the connection between two vertices (say a and b), if a and b are connected (a, b) = 1, if b and a are also connected (b, a) = 1 but is you can move from a to b but not from b to a (a, b) = 1 but (b, a) = -1 and if a and b aren't connected at all (a, b) = (b, a) = 0.
+Hence in an undirected graph there's no -1, there's only 1 and 0 since if two places are connected, you can move between them irrespective of the direction, hence "undirected" graph. But with this storage, the time complexity for various methods e.g. traversal can increase upto n^2 (n square) / (quadratic time complexity).
+
+### List: adjacent List:
+It is an object, with each veritce as a key and an array as a value which contains all the vertices that the given vertice is connected to. Decreasing time complexity to O(N) to find a connection.
+
+Traversal Methods: 
+### BFT: Breadth first traversal
+In Breadth first traversal, we go through the vertices one by one, for each vertex, also going through all the vertices adjacent to it at the same time. Ofcourse keeping a count of traversed vertices to avoid repetition
+
+### DFT: Depth first traversal
+In depth first traversal, we go through the root vertice and then, the first vertice in it's adjacents list and through the first vertice in second vertex's adjacent list and so on, until we are through with all the adjacents of the last vertex or reach a vertex with no adjacents. Then go a level back and go through the second adjacent vertex in the adjacents list of the vertex previous to our dead end position. Of course need to keep a count of all the vertices we have been through to avoid repetition.
+
+```js
+
+// declares class vertice
+class Vertice {
+  constructor (val) {
+    this.data = val;
+    // defaults adjacent vertices to empty array
+    this.adjacents = [];
+  }
+
+  // adds an adjacent vertice
+  // receives the vertice to add to adjacents array
+  // returns the current vertice
+  // time complexity:
+  addAdjacent(vertice){
+    this.adjacents.push(vertice);
+    return this;
+  }
+
+  // removes and adjacent vertice
+  // returns the updated current vertice
+  // time complexity:
+  removeAdjacent(vertice){
+    this.adjacents = this.adjacents.filter(adjacent => adjacent !== vertice);
+    return this;
+  }
+
+  // checks if the given vertice is adjacent
+  // returns a boolean true if it is adjacent and false if not adjacent
+  // time complexity:
+  isAdjacent(vertice){
+    return this.adjacents.includes(vertice) ? true : false;
+  }
+
+  // returns the array of adjacent vertices
+  // time complexity: 
+  getAdjacents(){
+    return this.adjacents;
+  }
+}
+
+// declares the class graph: which is basically a collection/array of vertices
+// using adjacent list structure with each vertex's value as the key and value being equal to the vertex.
+// the constructor receives a boolean (isDirected) to know if the graph is directed (di-graph) or undirected.
+class Graph {
+  constructor (isDirected) {
+    this.vertices = [];
+  }
+
+  // adds a new vertex
+  // all vertices need to be unique in a graph (e.g. there cannot be two locations on a map with same longitude and latitude)
+  // returns the new vertex
+  // time complexity: 
+  addVertex(val){
+    // checks if the given vertex already exists in the graph
+    if(this.vertices[val]) {
+      return this.vertices[val];
+    }
+
+    let vertex = new Vertice(val);
+    this.vertices[val] = vertex;
+    return this.vertices[val];
+  }
+
+  // takes the value of two vertices and adds a link between them
+  // time complexity:
+  addEdge(source, destination){
+    // checks if the passed vertices exists in the graph, if not, then the function creates a vertex with the given information
+    let sourceVertex = this.addVertex(source);
+    let destinationVertex = this.addVertex(destination);
+
+    sourceVertex.addAdjacent(destinationVertex);
+    // if not directed, adds bidirection flow
+    if(!isDirected) destinationVertex.addAdjacent(sourceVertex);
+  }
+
+  // removes a vertex from the graph, same for uni and bi directional graphs
+  // returns the removed vertex
+  // time complexity: 
+  removeVertex(val){
+    let removedVertex = this.vertices[val];
+    // loops through the entire vertices array and removes the removed Vertex from the list of adjacents of all vertices
+    for(let vertexValue in this.vertices) {
+      this.vertices[vertexValue].removeAdjacent(removedVertex);
+    }
+    // removes the targetted vertex from the list of vertices in the graph
+    this.vertices = this.vertices.filter(vertex => vertex !== removedVertex);
+    return removedVertex
+  }
+
+  // removes an edge
+  // returns the list of vertices
+  // time complexity: 
+  removeEdge(source, destination){
+    let sourceNode = this.vertices[souce];
+    let destinationNode = this.vertices[destination];
+
+    // only runs if both source and destination nodes exist
+    if(sourceNode && destinationNode) {
+      sourceNode.removeAdjacent(destinationNode);
+      if(!isDirected) destinationNode.removeAdjacent(sourceNode);
+    }
+
+    return this.vertices;
+  }
+}
+
+```
