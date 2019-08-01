@@ -1014,3 +1014,131 @@ class Graph {
 }
 
 ```
+
+## Heap
+In a heap all the nodes have two children. The nodes are stored in an array, and the highest elements will be on the top starting with the highest on the 0'th index in the array (called max-heap) or the smallest elements will be on the top starting with smallest on the 0'th index in the storage array (called min-heap). To calculate the index of children of each parent (since every node has two children nodes, like a binary search tree), we use the formulas:
+
+(elementIndex * 2) + 1 => for left child
+(elementIndex * 2) + 2 => for right child
+
+To calulate the parent's index of any node, we use:
+
+Math.floor((elementIndex - 1)/2);
+
+To calculate whether a child, say left child of element on Index 2 exists:
+Index of the left child: (2 * 2) + 1 => 5 => so the length of the storage array needs to be atleast 6
+
+List of methods for heap:
+  getLeftChildIndex(parentIndex)
+  getRightChildIndex(parentIndex)
+  getParentIndex(childIndex)
+  hasLeftChild(parentIndex)
+  hasRightChild(parentIndex)
+  hasParent(childIndex)
+
+```js
+
+// declares class heap
+class Heap {
+  constructor(){
+    this.storage = [];
+  }
+
+  // Same three functions for returning the index of left and the right child or the parent of a given child or while checking for the existance of the same //
+  // returns the value of the left child
+  // time complexity: O(1), constant
+  getLeftChild (parentIndex) {
+    let leftChildIndex = (parentIndex * 2 ) + 1;
+    return this.storage[leftChildIndex];
+  }
+
+  // returns the value of the right child
+  // time complexity: O(1), constant
+  getRightChild (parentIndex) {
+    let rightChildIndex = (parentIndex * 2 ) + 2;
+    return this.storage[rightChildIndex];
+  }
+
+  // returns the value of the parent of the given child
+  // time complexity: O(1), constant
+  getParent (childIndex) {
+    let parentIndex = Math.floor((childIndex - 1 ) / 2);
+    return this.storage[parentIndex];
+  }
+
+  // while adding a new element to a heap, we simply push it to the bottom of the heap, and then we perform an operation called heapify up to check if the new element is lesser than it's parent, if it is its cool but if it's not, we swap their positions and keep recursively validating the new element's value in comparision to it's parent until it's under a parent it's smaller from or it's at the top of the heap.
+  // time complexity: 
+  addElement (val) {
+    // adds the new element
+    this.storage.push(val);
+    // heapifies up the new element
+    this.heapifyUp(this.storage.length - 1);
+  }
+  
+  // receives the index of the element to be checked defaulting to the last element and checks if it's smaller from it's parent and so on.
+  // time complexity: 
+  heapifyUp (currentIndex = this.storage.length - 1) {
+    // calculates the index of the new element and it's parent element
+    let currentIndex = this.storage.length - 1;
+    let parentIndex = Math.floor((currentIndex - 1)/2);
+    // runs as long as a parent exists and parent's value is less than the value of the current element.
+    // if so, swaps the current and parent values and updates the current index and calculates the new parent of the element at current index.
+    while (parentIndex >= 0 && this.storage[parentIndex] < this.storage[currentIndex]) {
+      [this.storage[parentIndex], this.storage[currentIndex]] = [this.storage[currentIndex], this.storage[parentIndex]];
+      currentIndex = parentIndex;
+      parentIndex = Math.floor((currentIndex - 1)/2);
+    }
+  }
+
+  // heapify down while removing an element, probably checks whichever child of the removed element is bigger, pushes it to the top and checks it's children and so on till reaches the end of the heap.
+  // time complexity:
+  removeElement (index) {
+    // removes the element and swaps the last element in it's place
+    let removedElement = this.storage[index];
+    this.storage[index] = this.storage.pop();
+    // heapifies down the element
+    this.heapifyDown(index);
+    // returns the removed element
+    return removedElement;
+  }
+
+  // heapifies down the index targetted, defaults to 0
+  // time complexity: 
+  heapifyDown (currentIndex = 0) {
+
+    // initialises variables
+    let leftChild = this.getLeftChild(currentIndex);
+    let rightChild = this.getRightChild(currentIndex);
+    let leftChildIndex = (currentIndex * 2) + 1;
+    let rightChildIndex = (currentIndex * 2) + 2;
+
+    // continues the loop till both the children elements are undefined
+    while (leftChild !== undefined || rightChild !== undefined) {
+      // checks if leftChild isn't undefined and is greater than the element at the current index
+      if(leftChild !== undefined && leftChild >= this.storage[currentIndex]) {
+        [this.storage[currentIndex], this.storage[leftChildIndex]] = [this.storage[leftChildIndex], this.storage[currentIndex]];
+        currentIndex = leftChildIndex;
+      }
+
+      // checks if the rightChild isn't undefined and is greater than the element at the current index
+      if(rightChild !== undefined && rightChild >= this.storage[currentIndex]) {
+        [this.storage[currentIndex], this.storage[rightChildIndex]] = [this.storage[rightChildIndex], this.storage[currentIndex]];
+        currentIndex = rightChildIndex;
+      }
+
+      // updates the variable values
+      leftChild = this.getLeftChild(currentIndex);
+      rightChild = this.getRightChild(currentIndex);
+      leftChildIndex = (currentIndex * 2) + 1;
+      rightChildIndex = (currentIndex * 2) + 2;
+    };
+
+    // returns the updated storage
+    return this.storage;
+  }
+
+
+
+}
+
+```
