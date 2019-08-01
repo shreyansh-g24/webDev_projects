@@ -1016,6 +1016,8 @@ class Graph {
 ```
 
 ## Heap
+If we use heaps as a data structure in priority queue, we could reduce the time for sorting etc from O(N) to O(logN).
+
 In a heap all the nodes have two children. The nodes are stored in an array, and the highest elements will be on the top starting with the highest on the 0'th index in the array (called max-heap) or the smallest elements will be on the top starting with smallest on the 0'th index in the storage array (called min-heap). To calculate the index of children of each parent (since every node has two children nodes, like a binary search tree), we use the formulas:
 
 (elementIndex * 2) + 1 => for left child
@@ -1136,9 +1138,6 @@ class Heap {
     // returns the updated storage
     return this.storage;
   }
-
-
-
 }
 
 ```
