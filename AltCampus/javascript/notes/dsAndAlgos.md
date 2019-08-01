@@ -1067,7 +1067,7 @@ class Heap {
   }
 
   // while adding a new element to a heap, we simply push it to the bottom of the heap, and then we perform an operation called heapify up to check if the new element is lesser than it's parent, if it is its cool but if it's not, we swap their positions and keep recursively validating the new element's value in comparision to it's parent until it's under a parent it's smaller from or it's at the top of the heap.
-  // time complexity: 
+  // time complexity: O(logN), logarithmic time complexity
   addElement (val) {
     // adds the new element
     this.storage.push(val);
@@ -1076,7 +1076,7 @@ class Heap {
   }
   
   // receives the index of the element to be checked defaulting to the last element and checks if it's smaller from it's parent and so on.
-  // time complexity: 
+  // time complexity: O(logN), logarithmic time complexity
   heapifyUp (currentIndex = this.storage.length - 1) {
     // calculates the index of the new element and it's parent element
     let currentIndex = this.storage.length - 1;
@@ -1091,7 +1091,7 @@ class Heap {
   }
 
   // heapify down while removing an element, probably checks whichever child of the removed element is bigger, pushes it to the top and checks it's children and so on till reaches the end of the heap.
-  // time complexity:
+  // time complexity: O(logN), logarithmic time complexity
   removeElement (index) {
     // removes the element and swaps the last element in it's place
     let removedElement = this.storage[index];
@@ -1103,7 +1103,7 @@ class Heap {
   }
 
   // heapifies down the index targetted, defaults to 0
-  // time complexity: 
+  // time complexity: O(logN) logarithmic time complexity
   heapifyDown (currentIndex = 0) {
 
     // initialises variables
