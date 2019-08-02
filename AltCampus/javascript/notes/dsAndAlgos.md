@@ -1302,6 +1302,35 @@ class Trie {
     return this.root;
   }
 
+  // suggests words
+  // returns an array of all the possible characters after the last char of the word, that have isCompleteWord set to true
+  // time complexity:
+  suggestWords (word) {
+    let chars = word.split("");
+    let current = this.root;
+    let matches = [];
+
+    for (let i = 0, n = chars.length; i < n; i++) {
+      current = current.getChild(chars[i]);
+      if(current === null) break;
+      else if(current !== null && i === n - 1) {
+        current.getChildren().filter(child => child.isCompleteWord);
+      }
+    }
+
+    return matches;
+  }
 }
+
+```
+
+## Bloom Filter
+Used to store words using hash functions in bit data structure. For example, we have an 8 bit array with each element initialised to false. To add a new word say "bloom", we pass it through each of the two hash functions we have to obtain two numbers between 0 and 7 (ie. the indices of the bit array). Say it returns 0 and 6, so we set bitArray[0] and bitArray[6] to true or 1. 
+Hash functions need to be created such that they return same hash every time a word is passed through them.
+Also it's a probabilistic data structure because, there can be another word which when passed through the hash functions, returns the same values. So you cannot say for sure if a value is included in the data structure but if a word is not included, ie one or both or the two indices are false, you can be sure that the word is not included.
+UseCase: eg. while searching for malicious links, google only passes the browser, the bit array and the hash functions, thus saving a ton of memory.
+UseCase: to store the websites/articles the user has been through.
+
+```js
 
 ```
