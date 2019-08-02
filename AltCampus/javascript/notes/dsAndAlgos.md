@@ -1141,3 +1141,167 @@ class Heap {
 }
 
 ```
+
+## Trie
+It's just an extension of the tree. Used for storing words in a data structure, like a dictionary. Since it's a tree, it'll have a root node at the top of the trie, which is usually blank, represented by a * on paper. The words are stored character wise. The root node has alphabets as children. 
+E.g.  if we are to add "and" as a word, under the root node, there'll be a node "a" with the value: 
+
+{
+  char: "a",
+  isCompleteWord: false,
+  children: new Map() => value of children being => {
+    n: Node,
+  }
+}
+
+"a" will have a child node "n" => 
+
+{
+  char: "n",
+  isCompleteWord: false,
+  children: new Map() => value of this map being => {
+    d: Node
+  }
+}
+
+and n will have a child d with isCompleteWord: true value to signify the end of a word.
+
+The value of the root node will be: 
+{
+  char: "*",
+  isCompleteWord: false,
+  children: new Map() => value being => {
+    a: Node,
+  }
+}
+
+That is how auto-suggestions work, like we are on "an", it will suggest you all the characters afters "an", ie the chars that are children of "n" with isCompleteWord value to true.
+
+```js 
+
+// declares class node
+class TrieNode {
+  constructor (char, isCompleteWord = false) {
+    this.char = char;
+    this.isCompleteWord = isCompleteWord;
+    this.children = new Map();
+  }
+
+  // adds a child
+  // returns the newly added child
+  // time complexity: 
+  addChild (char, isCompleteWord = false) {
+    // adds the character as a child if is isn't there already
+    if(!this.children.has(char)) this.children.set(char, new TrieNode(char, isCompleteWord));
+    // else if the char already exists, updates the isCompleteWord property of the node to the value received
+    else this.children[char].isCompleteWord = isCompleteWord;
+
+    // returns the newly added char node
+    return this.children.get(char);
+  }
+
+  // removes child
+  // returns the removed child
+  // time complexity:
+  removeChild (char) {
+    let child = this.getChild(char);
+
+    // checks if the child exists but has no children and is not the end of any word, then deletes the key
+    if (child && !child.hasChildren() && !child.isCompleteWord) {
+      this.children.delete(char);
+    }
+    // else simply sets the isCompletedWord property of the word to false
+    else child.isCompleteWord = false;
+
+    // returns the removed child
+    return child;
+  }
+
+  // returns a specific child, if not there returns null
+  // time complexity:
+  getChild (char) {
+    return this.children.get(char) || null;
+  }
+
+  // checks for the existance of a specific child
+  // returns a boolean true for yes and false for no existance
+  // time complexity:
+  hasChild (char) {
+    return Boolean(this.children.has(char));
+  }
+
+  // checks if there are any children
+  // return the size of the map
+  // time complexity:
+  hasChildren () {
+    return this.children.size;
+  }
+
+  // returns all the children
+  // time complexity: 
+  getChildren () {
+    return this.children;
+  }
+}
+
+// declares the class Trie
+class Trie {
+  constructor () {
+    this.root = new TrieNode("*");
+  }
+
+  // adds a word 
+  // time complexity: 
+  addWord (word) {
+    // splits the word in to an array of characters
+    let chars = word.split("");
+
+    let current = this.root;
+
+    // loops through the characters of the word and creates nodes
+    for(let i = 0, n = chars.length; i < n; i++){
+      // isCompleteWord false by default
+      let isCompleteWord = false;
+      // if at the end index, updates the isCompleteWord to true
+      if (i === n - 1) isCompleteWord = true;
+      // adds new child, and updates the current position to point to the newly created child, add child returns the newly created child
+      current = current.addChild(chars[i], isCompleteWord);
+    }
+    // returns the updated root node
+    return this.root;
+  }
+
+  // searches for a word
+  // time complexity:
+  hasWord (word) {
+    let chars = word.split("");
+    let current = this.root;
+    let hasWord = false;
+
+    for(let i = 0, n = this.chars.length; i < n; i++) {
+      current = current.getChild(chars[i]);
+      if(current === null) break;
+    }
+    if(current.char === chars[chars.length - 1] && current.isCompleteWord) hasWord = true;
+
+    return hasWord;
+  }
+
+  // removes a word
+  // time complexity:
+  removeChild (word) {
+    let chars = word.split("");
+    let current = this.root;
+    
+    for (let i = 0, n = this.chars.length; i <= n - 2; i++) {
+      current = current.getChild(chars[i]);
+      if(current === null) break;
+      else if (current !== null && i === n - 2) current.removeChild(chars[i + 1]);
+    }
+
+    return this.root;
+  }
+
+}
+
+```
